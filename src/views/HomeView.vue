@@ -1,18 +1,25 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <!-- <Footer v-bind:links="[
+    { text: 'Find a course', href: '#'},
+    { text: 'Validate Certificate', href: '#'},
+    { text: 'FAQ', href: '#'},
+    { text: 'Jobs', href: '#'},
+    { text: 'Volunteers', href: '#'},
+    { text: 'Contact us', href: '#'},
+    ]"
+    v-bind:socialMedias="[
+      { imgSrc: '../assets/Images/crc_logo_simple_en.webp', alt: 'Patate'}
+    ]"/> -->
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import Footer from '@/components/Footer.vue'
 
-export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
-}
+// export default {
+//   name: 'HomeView',
+//   components: {
+//     Footer
+//   }
+// }
 </script>

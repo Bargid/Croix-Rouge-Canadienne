@@ -1,0 +1,94 @@
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 430px;
+    max-width: 1920px;
+    width: 100%;
+
+    background-color: var(--copy);
+    color: white;
+}
+
+.footer-links {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 550;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: white;
+
+    padding: 0 15px;
+    line-height: 16px;
+}
+
+.footer-container > div > .footer-links:not(:last-child) {
+    border-right: 1px solid white;
+}
+
+/* Social media */
+
+.footer-socialmedia {
+    display: flex;
+    height: 30px;
+}
+
+.socialmedia-container {
+    display: flex;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+/* App store */
+
+.appstore-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.appstore-container span {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+}
+
+.appstore-container p,
+.internallinks-container a,
+.internallinks-container p {
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+}
+
+.footer-appstore {
+    display: flex;
+    height: 35px;
+}
+
+/* Internal Links */
+
+.internallinks-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.internallinks-container,
+.internallinks-container p {
+    margin-top: 35px;
+}
+
+.internallinks-container a {
+    text-decoration: none;
+    color: white;
+    
+    padding: 0 10px;
+}
+
+.internallinks-container a:not(:last-child) {
+    border-right: 1px solid white;
+}

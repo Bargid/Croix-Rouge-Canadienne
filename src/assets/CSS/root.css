@@ -1,0 +1,17 @@
+:root {
+    /* Color global variables */
+    
+    --crc-red: #EE0000;
+    --red-hover: #be0000;
+    --crc-blue: #005670;
+    --blue-hover: #002b38;
+    --blue-outline: #0085ad;
+
+    --copy: #313131;
+    --footer-outline: #464646;
+    --button-copy: #757575;
+    --form-border: #cdcdcd;
+    --table-bg: #f0f0f0;
+    --tooltip: #e4f0f5;
+    --notification: #efe7e1;
+}
