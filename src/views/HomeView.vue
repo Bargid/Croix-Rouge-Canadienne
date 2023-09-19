@@ -13,13 +13,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import Footer from '@/components/Footer.vue'
-
-// export default {
-//   name: 'HomeView',
-//   components: {
-//     Footer
-//   }
-// }
+export default {
+  name: 'HomeView',
+  components: { }
+}
 </script>

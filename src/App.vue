@@ -23,7 +23,18 @@
       <img src="./assets/Images/classroom-banner.webp" alt="Hero Banner">
     </section>
       <p>Body</p>
-    <router-view/> <!-- va toujours montrer ce qui est dans la route, ou le lien clique -->
+  
+
+    <section class="courses-template"> 
+      <div class="left-filters">
+        <div class="left-filters-date">
+          
+          <Courses />
+        </div>
+
+      </div>
+    </section>
+
   </body>
 
   <footer>
@@ -55,10 +66,12 @@
 
 <script>
   import Footer from '@/components/Footer.vue'
+  import Courses from '@/views/Courses.vue'
 
   export default {
     components: {
-      Footer
+      Footer,
+      Courses
     },
 
     methods: {

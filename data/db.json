@@ -1,0 +1,17 @@
+{
+    "courses": [
+        { 
+            "id": 1,
+            "title": "CPR / Automated External Defibrillator",
+            "date": "2023-04-25",
+            "startTime": "6:00 PM",
+            "endTime": "10:00 PM",
+            "duration": "3:00",
+            "deliveryMethod": "In Class",
+            "trainingPartner": "CRCS Online Course",
+            "language": "French",
+            "price": 100,
+            "popular": true
+        }
+    ]
+}
