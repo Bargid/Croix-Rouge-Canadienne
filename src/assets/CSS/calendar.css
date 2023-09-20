@@ -1,0 +1,69 @@
+.startdate-input-container {
+    display: inline-block;
+    position: relative;
+    width: 250px;
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+.startdate-input {
+    width: 100%;
+    height: 40px;
+
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+
+.startdate-button {
+    position: absolute;
+    left: 90%;
+    top: 10%;
+    margin: 5px;
+    background-image: url('@/assets/Icons/date_picker.svg');
+    background-size: cover;
+    width: 26px;
+    height: 25px;
+}
+
+.startdate-button::before {
+    font-size: 100%;
+}
+
+.startdate-input::-webkit-calendar-picker-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+  
+
+/* calendar icon */
+
+
+
+/* .startdate-input::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+} */
+
+/* .startdate-input::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    cursor: pointer;
+} */
+/* .startdate-input::before {
+    content: url('@/assets/Icons/calendar.svg');
+    font-size: 16px;
+    margin-right: 5px;
+} */

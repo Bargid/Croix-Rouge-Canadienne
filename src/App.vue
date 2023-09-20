@@ -23,7 +23,6 @@
       <img src="./assets/Images/classroom-banner.webp" alt="Hero Banner">
     </section>
       <p>Body</p>
-  
 
     <section class="courses-template"> 
       <div class="left-filters">

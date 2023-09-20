@@ -1,20 +1,26 @@
 <template>
 
-    <label for="start-date">Start Date: </label>
-    <input type="date" id="start-date" v-model="startDate" v-bind:min="minStartDate" v-bind:max="maxStartDate">
+        <span class="startdate-input-container">
+            <!-- <label for="start-date">Start Date: </label> -->
+            <span class="startdate-button"></span>
+            <input class="startdate-input" type="date" id="start-date" v-model="startDate" v-bind:min="minStartDate" v-bind:max="maxStartDate">
+        </span>
 
-    <label for="end-date"> End Date: </label>
-    <input type="date" id="end-date" v-bind:min="minEndDate" v-model="endDate" :disabled = "!startDate">
+    <!-- <label for="end-date"> End Date: </label>
+    <input class="enddate-label" type="date" id="end-date" v-bind:min="minEndDate" v-model="endDate" :disabled = "!startDate"> -->
 
 </template>
 
 <script>
 
+ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+
  const today = new Date().toISOString().split('T')[0]; // return la date d'aujourd'hui
-//  const maxDate = new Date(86400000); // un chiffre incroyablement élevé...
 
  export default {
     name: 'Calendar',
+    // components: { FontAwesomeIcon },
     data() {
         return {
             startDate: '',
@@ -28,45 +34,21 @@
         minStartDate() {
             return today;
         },
-        maxStartDate() {
+        maxStartDate() { 
             if(this.endDate) {
                 return this.endDate;
             } 
         }
     },
-    // watch: {
-    //     startDate(newStartDate, oldStartDate) {
-    //         if (newStartDate > this.endDate) {
-    //             this.endDate = ''; // on reset le endDate si le user change la startDate pour une valeur plus grande
-    //         }
-    //     },
-    //     endDate(newEndDate, oldEndDate) {
-    //         if (newEndDate < this.startDate) {
-    //             this.startDate = newEndDate; // remet startDate a la valeur de endDate si elle etait plus grande
-    //         }
-    //     }
-    // },
     created() { // created est un lifecycle hook. Le moment de la creation d'un objet ou une propriété
         this.startDate = today // la valeur "startDate" dans data est maintenant la journee d'aujourd'hui
+    },
+    methods: {
+        openStartDatePicker() {
+            let startDateInput = document.querySelector('#start-date');
+            startDateInput.click()
+            console.log("allo")
+        }
     }
-    // methods: {
-    //     updateEndDateMin(evt) {
-    //        this.startDate = evt.target.value;
-    //     }
-    // }
  }
 </script>
-
-
-<!-- updateEndDateMin(evt) {
-    let startDate = evt.target.value;
-    let endDateInput = document.querySelector('#end-date');
-    
-    if (startDate) {
-        endDateInput.removeAttribute('disabled');
-        endDateInput.setAttribute('min', startDate);
-    } else {
-        endDateInput.setAttribute('disabled', true);
-        endDateInput.value = '';
-    }
-} -->
