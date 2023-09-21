@@ -3,7 +3,8 @@
         { 
             "id": 1,
             "title": "CPR / Automated External Defibrillator",
-            "date": "2023-04-25",
+            "courseType": "First Aid",
+            "date": "2023-09-26",
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
@@ -13,5 +14,11 @@
             "price": 100,
             "popular": true
         }
+    ],
+
+    "courseTypes": [
+        "First Aid",
+        "CPR",
+        "Fire Safety"
     ]
 }

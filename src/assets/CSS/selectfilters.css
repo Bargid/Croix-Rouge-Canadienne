@@ -1,0 +1,24 @@
+.coursesType-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-categories {
+    display: flex;
+    position: relative;
+    text-align: center;
+
+    border-bottom: 2px soplid transparent;
+    transition: 0.4s;
+}
+
+.menu-categories.active {
+    background-color: lightgray;
+    border-bottom-color: red;
+}
+
+.menu-categories span {
+    text-decoration: none;
+}

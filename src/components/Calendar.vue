@@ -1,13 +1,28 @@
 <template>
 
-        <span class="startdate-input-container">
-            <!-- <label for="start-date">Start Date: </label> -->
-            <span class="startdate-button"></span>
-            <input class="startdate-input" type="date" id="start-date" v-model="startDate" v-bind:min="minStartDate" v-bind:max="maxStartDate">
-        </span>
-
-    <!-- <label for="end-date"> End Date: </label>
-    <input class="enddate-label" type="date" id="end-date" v-bind:min="minEndDate" v-model="endDate" :disabled = "!startDate"> -->
+        <div class="calendar-container">
+            <span class="startdate-input-container">
+                <!-- <label for="start-date">Start Date: </label> -->
+                <span class="startdate-button"></span>
+                <input class="startdate-input" type="date" id="start-date" 
+                    v-model="startDate" 
+                    v-bind:min="minStartDate" 
+                    v-bind:max="maxStartDate"
+                    @change="handleDateSelection">
+            </span>
+            <span class="enddate-input-container">
+                <!-- <label for="start-date">Start Date: </label> -->
+                <span class="enddate-button"></span>
+                <input class="enddate-input" type="date" id="end-date" 
+                    v-model="endDate" 
+                    v-bind:min="minEndDate" 
+                    :disabled = "!startDate"
+                    @change="handleDateSelection" >
+            </span>
+            <span class="calendar-checkmark" v-bind:style="{backgroundColor: startDate && endDate ? 'black' : 'transparent'}">
+                <font-awesome-icon :icon="['fas', 'check']" style="color: white;"/>
+            </span>
+        </div>
 
 </template>
 
@@ -20,7 +35,7 @@
 
  export default {
     name: 'Calendar',
-    // components: { FontAwesomeIcon },
+    components: { FontAwesomeIcon },
     data() {
         return {
             startDate: '',
@@ -48,6 +63,11 @@
             let startDateInput = document.querySelector('#start-date');
             startDateInput.click()
             console.log("allo")
+        },
+        handleDateSelection() { // permet d'envoyer les valeur sélectionnés par le user a la View parent qui utilisera ce component, Calendar.vue
+            this.$emit('selected-dates', {startDate: this.startDate, endDate: this.endDate})
+            // console.log(this.startDate)
+            // console.log(this.endDate)
         }
     }
  }

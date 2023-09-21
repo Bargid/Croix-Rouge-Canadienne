@@ -70,7 +70,7 @@
   export default {
     components: {
       Footer,
-      Courses
+      Courses,
     },
 
     methods: {
