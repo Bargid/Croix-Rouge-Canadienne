@@ -26,10 +26,8 @@
 
     <section class="courses-template"> 
       <div class="left-filters">
-        <div class="left-filters-date">
-          
+
           <Courses />
-        </div>
 
       </div>
     </section>
@@ -59,6 +57,7 @@
       { href: '#', text: 'Terms & Conditions'},
       { href: '#', text: 'Accessibility'},
       { href: '#', text: 'Français'},
+      { href: '#', text: 'Deutsch'},
     ]"/>
   </footer>
 </template>

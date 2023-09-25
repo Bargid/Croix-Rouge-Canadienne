@@ -68,6 +68,12 @@ header {
     text-transform: uppercase ;
 }
 
+/* Left Filters */
+
+.left-filters {
+    width: 100%;
+}
+
 /* ========== MEDIA ========== */
 
 @media (max-width: 1440px) {

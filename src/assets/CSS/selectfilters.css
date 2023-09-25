@@ -1,17 +1,61 @@
+/* General */
+
+.filters-menu {
+    display: flex;
+    width: 100%;
+}
+
 .coursesType-menu {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    box-sizing: border-box;
+    width: 310px;
+    height: fit-content;
+    padding: 0 0 10px 0;
+
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+}
+
+.coursesType-menu div:not(.filter-container) {
+    padding-left: 25px;
+}
+
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    width: 100%;
+
+    font-weight: bold;
+}
+
+.container-border {
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+.categories {
+    font-weight: bold;
+    display: flex;
+    width: calc(100% - 25px);
+}
+
+.categories span {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 15px;
+    width: 100%;
 }
 
 .menu-categories {
     display: flex;
-    position: relative;
+    flex-direction: column;
     text-align: center;
-
-    border-bottom: 2px soplid transparent;
-    transition: 0.4s;
+    width: calc(100% - 25px);
 }
 
 .menu-categories.active {
@@ -19,6 +63,33 @@
     border-bottom-color: red;
 }
 
-.menu-categories span {
-    text-decoration: none;
+.menu-categories div {
+    display: flex;
+    gap: 10px;
 }
+
+.subGroups {
+    gap: 10px;
+}
+
+.subGroups-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+.subGroups-container:last-child {
+    margin-bottom: 15px;
+}
+.subGroups-container .subGroups {
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* pastilles */
+
+.pastille-tag {
+    margin: 10px 20px;
+}
+

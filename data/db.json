@@ -13,12 +13,43 @@
             "language": "French",
             "price": 100,
             "popular": true
+        },
+        { 
+            "id": 2,
+            "title": "CPR / Automated External Defibrillator",
+            "courseType": "First Aid",
+            "date": "2023-09-29",
+            "startTime": "6:00 PM",
+            "endTime": "10:00 PM",
+            "duration": "3:00",
+            "deliveryMethod": "Online",
+            "trainingPartner": "CRCS Online Course",
+            "language": "French",
+            "price": 100,
+            "popular": true
         }
     ],
 
     "courseTypes": [
-        "First Aid",
-        "CPR",
-        "Fire Safety"
+        {
+            "name": "First Aid",
+            "subGroups" : [
+                {
+                    "name": "Personal"
+                },
+                {
+                    "name": "Work / School"
+                },
+                {
+                    "name": "Recertification"
+                }
+            ]
+        },
+        {
+            "name": "CPR"
+        },
+        {
+            "name": "Fire Safety"
+        }
     ]
 }

@@ -1,6 +1,7 @@
 .calendar-container {
     display: flex;
     gap: 6px;
+    width: 320px;
 }
 
 .startdate-input-container,
@@ -13,7 +14,7 @@
 }
 
 .startdate-input {
-    border-radius: 5px 0 0 5px;
+    border-radius: 2px 0 0 2px;
 }
 
 .startdate-input,
@@ -26,6 +27,7 @@
     font-size: 14px;
 
     border: 1px solid black;
+    border-right: none;
 }
 
 .startdate-button,
@@ -65,7 +67,7 @@
     
     background-color: black;
     height: 40px;
-    width: 33px;
+    width: 40px;
     border: 1px solid black;
-    border-radius: 0 5px 5px 0;
+    border-radius: 0 2px 2px 0;
 }
