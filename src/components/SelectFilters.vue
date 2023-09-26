@@ -13,7 +13,7 @@
             v-bind:value="courseType"
             v-if="showDropdown">
                 <div class="categories" 
-                v-on:click="toggleSubDropdown(courseType.name), toggleCategoryCheckbox(courseType.name), updateSelectedFilters(courseType.name)">
+                v-on:click="toggleCategoryCheckbox(courseType.name), toggleSubDropdown(courseType.name)">
                     <input type="checkbox" 
                     v-bind:value="courseType.name"
                     v-model="CategoryChecked[courseType.name]">
@@ -25,17 +25,24 @@
                     v-bind:key="subGroup.name"
                     v-bind:value="subGroup"
                     v-if="courseType.showSubDropdown"
-                    v-on:click="toggleSubGroupCheckbox(subGroup.name), updateSelectedFilters(subGroup.name)">
+                    v-on:click="toggleSubGroupCheckbox(subGroup.name)">
                         <input type="checkbox" 
                             v-bind:value="subGroup.name"
                             v-model="SubGroupChecked[subGroup.name]">
                     {{ subGroup.name }}</span>
                 </div>
+
+                <!-- <div class="subrgoup-appendum"
+                    v-if="">
+
+                </div> -->
             </div>
         </nav>
 
         <!-- Menu de filtre horizontale -->
         <div class="horizontal-filters-container">
+            <span class="reset-tag"
+                v-on:click="resetFilters()"> Reset </span>
             <span class="pastille-tag" 
                 v-for="(filter, index) in selectedFilters" 
                 v-bind:key="index"
@@ -56,13 +63,33 @@
                 courses: [],
                 courseTypes: [],
                 subGroups: [],
-                selectedFilters: [],
+                // selectedFilters: [],
                 showDropdown: false,
                 showSubDropdown: false,
+                currentOpenDropdown: null,
                 CategoryChecked: {},
                 SubGroupChecked: {},
             }
                 
+        },
+        computed: { // Beaucoup plus simple que de faire une fonction updateSelectedFilters...
+            selectedFilters() {
+                const selectedFilters = [];
+                
+                for (const key in this.CategoryChecked) {
+                    if (this.CategoryChecked[key]) {
+                        selectedFilters.push(key);
+                    }
+                }
+                
+                for (const key in this.SubGroupChecked) {
+                    if (this.SubGroupChecked[key]) {
+                        selectedFilters.push(key);
+                    }
+                }
+                
+                return selectedFilters;
+            }
         },
 
         methods: {
@@ -70,7 +97,19 @@
             toggleDropdown() {
                 this.showDropdown = !this.showDropdown;
             },
+            // toggleSubDropdown(courseTypeName) {
+            //     const courseType = this.courseTypes.find(type => type.name === courseTypeName);
+            //     if (courseType) {
+            //         courseType.showSubDropdown = !courseType.showSubDropdown;
+            //     }
+            // },
             toggleSubDropdown(courseTypeName) {
+                if (this.currentOpenDropdown === courseTypeName) {
+                    this.currentOpenDropdown = null; // Clicked the already open dropdown, so close it
+                } else {
+                    this.currentOpenDropdown = courseTypeName;
+                }
+
                 const courseType = this.courseTypes.find(type => type.name === courseTypeName);
                 if (courseType) {
                     courseType.showSubDropdown = !courseType.showSubDropdown;
@@ -79,22 +118,61 @@
 
             // Toggle pour les checkbox
             toggleCategoryCheckbox(categoryName) {
+                for (const key in this.CategoryChecked) {
+                    if (key !== categoryName) {
+                        this.CategoryChecked[key] = false;
+
+
+                        const index = this.selectedFilters.indexOf(key);
+                        if (index !== -1) {
+                            this.selectedFilters.splice(index, 1);
+                        }
+                    }
+                }
+                // Toggle de la checkbox
                 this.CategoryChecked[categoryName] = !this.CategoryChecked[categoryName]
+                // On update le SelectedFilters array
+                // this.updateSelectedFilters(categoryName);
+
+
+                this.courseTypes.forEach(courseType => {
+                    if (courseType.name !== categoryName) {
+                        courseType.showSubDropdown = false;
+                    }
+                });
             },
             toggleSubGroupCheckbox(subGroupName) {
+                // this.SubGroupChecked[subGroupName] = !this.SubGroupChecked[subGroupName]
+                for (const key in this.SubGroupChecked) {
+                    if (key !== subGroupName) {
+                        this.SubGroupChecked[key] = false;
+
+                        const index = this.selectedFilters.indexOf(key);
+                        if (index !== -1) {
+                            this.selectedFilters.splice(index, 1);
+                        }
+                    }
+                }
+                // Toggle de la checkbox
                 this.SubGroupChecked[subGroupName] = !this.SubGroupChecked[subGroupName]
+                // On update le SelectedFilters array
+                // this.updateSelectedFilters(subGroupName);
+                console.log(subGroupName)
+                // console.log(this.selectedFilters)
             },
 
             // Pour les pastilles
-            updateSelectedFilters(value) {
-                const index = this.selectedFilters.indexOf(value);
-                if (index !== -1) {
-                    this.selectedFilters.splice(index, 1);
-                } else {
-                    this.selectedFilters.push(value);
-                }
-                console.log(this.selectedFilters)
-            },
+            // updateSelectedFilters(value) {
+            //     console.log('UpdatedFilters')
+            //     const index = this.selectedFilters.indexOf(value);
+            //     if (index !== -1) {
+            //         this.selectedFilters.splice(index, 1);
+            //     } else {
+            //         this.selectedFilters.push(value);
+            //         console.log("Pushed Value : ", value)
+            //         console.log(this.selectedFilters)
+            //     }
+            // },
             uncheckFilter(filter) {
                 if (this.CategoryChecked[filter]) {
                     this.CategoryChecked[filter] = false;
@@ -108,6 +186,23 @@
                 }
 
                 this.toggleSubDropdown(filter); // va actioner "toggleSubDropdown" si le filter clique a cette fonction associe
+            },
+            resetFilters() {
+                // on uncheck tous les filtres
+                for (const key in this.CategoryChecked) {
+                    this.CategoryChecked[key] = false;
+                }
+                for (const key in this.SubGroupChecked) {
+                    this.SubGroupChecked[key] = false;
+                }
+
+                // on vide le array selectedFilters
+                this.selectedFilters = [];
+
+                // on ferme les dropdowns
+                this.courseTypes.forEach(courseType => {
+                    courseType.showSubDropdown = false;
+                })
             },
 
             // Fonction pour le CSS de la section filtre
