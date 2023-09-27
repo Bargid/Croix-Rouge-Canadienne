@@ -17,9 +17,9 @@
         },
         { 
             "id": 2,
-            "title": "CPR / Automated External Defibrillator",
+            "title": "Deuxieme cours",
             "courseType": "First Aid",
-            "subGroup": "Work/School",
+            "subGroup": "Work / School",
             "date": "2023-09-29",
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",

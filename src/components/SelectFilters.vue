@@ -46,7 +46,7 @@
             <span class="pastille-tag" 
                 v-for="(filter, index) in selectedFilters" 
                 v-bind:key="index"
-                v-on:click="uncheckFilter(filter)">
+                v-on:click="uncheckFilterPastille(filter)">
                 {{ filter }}</span>
         </div>
 
@@ -69,9 +69,11 @@
                 currentOpenDropdown: null,
                 CategoryChecked: {},
                 SubGroupChecked: {},
+                subGroupExists: false,
             }
                 
         },
+
         computed: { // Beaucoup plus simple que de faire une fonction updateSelectedFilters...
             selectedFilters() {
                 const selectedFilters = [];
@@ -140,8 +142,11 @@
                         courseType.showSubDropdown = false;
                     }
                 });
+                this.resetSubGroups()
+                this.handleEmits();
             },
             toggleSubGroupCheckbox(subGroupName) {
+                console.log('clicked')
                 // this.SubGroupChecked[subGroupName] = !this.SubGroupChecked[subGroupName]
                 for (const key in this.SubGroupChecked) {
                     if (key !== subGroupName) {
@@ -154,38 +159,33 @@
                     }
                 }
                 // Toggle de la checkbox
-                this.SubGroupChecked[subGroupName] = !this.SubGroupChecked[subGroupName]
-                // On update le SelectedFilters array
-                // this.updateSelectedFilters(subGroupName);
-                console.log(subGroupName)
-                // console.log(this.selectedFilters)
+                this.SubGroupChecked[subGroupName] = !this.SubGroupChecked[subGroupName];
+                this.subGroupExists = Object.values(this.SubGroupChecked).some(val => val);
+                this.handleEmits();
             },
 
-            // Pour les pastilles
-            // updateSelectedFilters(value) {
-            //     console.log('UpdatedFilters')
-            //     const index = this.selectedFilters.indexOf(value);
-            //     if (index !== -1) {
-            //         this.selectedFilters.splice(index, 1);
-            //     } else {
-            //         this.selectedFilters.push(value);
-            //         console.log("Pushed Value : ", value)
-            //         console.log(this.selectedFilters)
-            //     }
-            // },
-            uncheckFilter(filter) {
+            uncheckFilterPastille(filter) {
                 if (this.CategoryChecked[filter]) {
                     this.CategoryChecked[filter] = false;
                 } else if (this.SubGroupChecked[filter]) {
                     this.SubGroupChecked[filter] = false;
+                    this.subGroupExists = false;
                 }
 
-                const index = this.selectedFilters.indexOf(filter); // bien que le "check" soit removed avec uncheckFilter, il faut supprimer la valeur du array selectedFilters avec splice
+                const index = this.selectedFilters.indexOf(filter); // bien que le "check" soit removed avec uncheckFilterPastille, il faut supprimer la valeur du array selectedFilters avec splice
                 if (index !== -1) {
                     this.selectedFilters.splice(index, 1);
                 }
 
                 this.toggleSubDropdown(filter); // va actioner "toggleSubDropdown" si le filter clique a cette fonction associe
+                this.handleEmits();
+            },
+            resetSubGroups() {
+                for (const key in this.SubGroupChecked) {
+                    this.SubGroupChecked[key] = false;
+                }
+                this.subGroupExists = false;
+                // this.handleEmits();
             },
             resetFilters() {
                 // on uncheck tous les filtres
@@ -203,6 +203,9 @@
                 this.courseTypes.forEach(courseType => {
                     courseType.showSubDropdown = false;
                 })
+
+                this.subGroupExists = false;
+                this.handleEmits();
             },
 
             // Fonction pour le CSS de la section filtre
@@ -211,6 +214,12 @@
                 const wholeContainer = document.querySelector('.coursesType-menu');
                 filterContainer.classList.toggle("container-border");
                 wholeContainer.classList.toggle("container-border");
+            },
+
+            // On emit les selections
+            handleEmits() {
+                this.$emit('selected-filters', {selectedFilters: this.selectedFilters});
+                this.$emit('sub-group-exists', {subGroupExists: this.subGroupExists});
             }
         },
 
