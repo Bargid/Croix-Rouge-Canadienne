@@ -28,7 +28,6 @@ import SelectFilters from '@/components/SelectFilters.vue';
                 selectedStartDate: '',
                 selectedEndDate: '',
                 selectedFilters: [],
-                // courseType: [],
                 subGroup: [],
                 subGroupExists: false,
 

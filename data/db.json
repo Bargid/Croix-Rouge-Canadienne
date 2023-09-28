@@ -37,10 +37,112 @@
             "name": "First Aid",
             "subGroups" : [
                 {
-                    "name": "Personal"
+                    "name": "Personal",
+                    "subGroupMenu" : [
+                        {
+                            "name": "Courses to Help",
+                            "subGroupChoices": [
+                                {
+                                    "name": "Children",
+                                    "subGroupsChoicesDetails" : [
+                                        {
+                                            "name": "Child Care Standard First Aid CPR B"
+                                        },
+                                        {
+                                            "name": "Child Care Emergency First Aid CPR B"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Adult",
+                                    "subGroupsChoicesDetails" : [
+                                        {
+                                            "name": "First Aid & CPR"
+                                        },
+                                        {
+                                            "name": "Marine First Aid"
+                                        },
+                                        {
+                                            "name": "Wilderness & Remote First Aid"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Both",
+                                    "subGroupsChoicesDetails" : [
+                                        {
+                                            "name": "CPR C"
+                                        },
+                                        {
+                                            "name": "Emergency First Aid CPR C"
+                                        },
+                                        {
+                                            "name": "Standard First Aid CPR C"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
-                    "name": "Work / School"
+                    "name": "Work / School",
+                    "subGroupMenu": [
+                        {
+                            "name": "Pre-Hospital & Health Care",
+                            "subGroupChoices": [
+                                {
+                                    "name": "Yes",
+                                    "subGroupsChoicesDetails": [
+                                        {
+                                            "name": "Basic Life Support"
+                                        },
+                                        {
+                                            "name": "Airway Management"
+                                        },
+                                        {
+                                            "name": "Oxygen Therapy"
+                                        },
+                                        {
+                                            "name": "First Responder"
+                                        },
+                                        {
+                                            "name": "Emergency Medical Responder"
+                                        },
+                                        {
+                                            "name": "Advanced First Aid"
+                                        },
+                                        {
+                                            "name": "Marine Advanced First Aid"
+                                        },
+                                        {
+                                            "name": "Wilderness First Responder"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "No",
+                                    "subGroupsChoicesDetails": [
+                                        {
+                                            "name": "First Aid & CPR"
+                                        },
+                                        {
+                                            "name": "Child Care First Aid"
+                                        },
+                                        {
+                                            "name": "Marine First Aid"
+                                        },
+                                        {
+                                            "name": "Wilderness & Remote First Aid"
+                                        },
+                                        {
+                                            "name": "Professional Responder"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "name": "Recertification"

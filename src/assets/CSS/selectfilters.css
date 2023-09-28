@@ -19,9 +19,9 @@
     font-size: 16px;
 }
 
-.coursesType-menu div:not(.filter-container) {
+/* .coursesType-menu div {
     padding-left: 25px;
-}
+} */
 
 .filter-container {
     display: flex;
@@ -41,7 +41,11 @@
 .categories {
     font-weight: bold;
     display: flex;
-    width: calc(100% - 25px);
+    /* width: calc(100% - 25px); */
+}
+
+.categories-checkbox {
+    display: none;
 }
 
 .categories span {
@@ -56,6 +60,7 @@
     flex-direction: column;
     text-align: center;
     width: calc(100% - 25px);
+    padding-left: 25px;
 }
 
 .menu-categories.active {
@@ -67,6 +72,8 @@
     display: flex;
     gap: 10px;
 }
+
+/* ================== SUBGROUPS ================== */
 
 .subGroups {
     gap: 10px;
@@ -85,6 +92,17 @@
 .subGroups-container .subGroups {
     display: flex;
     justify-content: flex-start;
+}
+
+/* ================== SUBGROUPS MENU ================== */
+
+.subGroups-container .subGroupsMenu-container {
+    padding-left: 0;
+}
+
+.subGroupsMenu {
+    font-weight: bold;
+    margin: 10px 0;
 }
 
 /* pastilles */

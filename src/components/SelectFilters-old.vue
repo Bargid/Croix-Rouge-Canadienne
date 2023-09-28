@@ -14,7 +14,7 @@
             v-if="showDropdown">
                 <div class="categories" 
                     v-on:click="toggleCategoryCheckbox(courseType.name), toggleSubDropdown(courseType.name)">
-                    <input class="categories-checkbox" type="checkbox" 
+                    <input type="checkbox" 
                     v-bind:value="courseType.name"
                     v-model="CategoryChecked[courseType.name]">
                     <span>{{ courseType.name }} <img src="../assets/Icons/arrow.svg" alt=""></span></div>
@@ -32,33 +32,14 @@
                     {{ subGroup.name }}</span>
                 </div>
 
-                <!-- ========== Sous-menu de PERSONAL ========== -->
-                <div class="subGroupsMenu-container" v-if="SubGroupChecked['Personal'] && courseType.name === 'First Aid'">
-                    <span class="subGroupsMenu"
-                        v-for="subGroupMenu in getSubGroupMenu('Personal')"
-                        v-bind:key="subGroupMenu.name"
-                        v-bind:value="subGroupMenu">
-                        {{ subGroupMenu.name }}
-                    </span>
-                    <div class="subGroupChoices-container">
-                        <span class="subGroupChoices">
+                <div class="subGroups-appendum">
 
-                        </span>
-                    </div>
                 </div>
-                <div class="subGroupsMenu-container" v-else-if="SubGroupChecked['Work / School'] && courseType.name === 'First Aid'">
-                    <span class="subGroupsMenu"
-                        v-for="subGroupMenu in getSubGroupMenu('Work / School')"
-                        v-bind:key="subGroupMenu.name"
-                        v-bind:value="subGroupMenu">
-                        {{ subGroupMenu.name }}
-                    </span>
-                    <div class="subGroupChoices-container">
-                        <span class="subGroupChoices">
 
-                        </span>
-                    </div>
-                </div>
+                <!-- <div class="subrgoup-appendum"
+                    v-if="">
+
+                </div> -->
             </div>
         </nav>
 
@@ -118,28 +99,16 @@
         },
 
         methods: {
-
-// ================== Toggle de Menus secondaires functions ==================
-
-            getSubGroupMenu(subGroupName) {
-                console.log(this.SubGroupChecked)
-                let resultat = '';
-                const courseType = this.courseTypes.find(type => type.name === 'First Aid');
-                if (courseType) {
-                    const subGroup = courseType.subGroups.find(group => group.name === subGroupName);
-                    if (subGroup) {
-                        resultat = subGroup.subGroupMenu;
-                    }
-                }
-                return resultat;
-            },
-
-// ================== Toggle pour les menu dropdown functions ==================
-
+            // Toggle pour les menus dropdown
             toggleDropdown() {
                 this.showDropdown = !this.showDropdown;
             },
-
+            // toggleSubDropdown(courseTypeName) {
+            //     const courseType = this.courseTypes.find(type => type.name === courseTypeName);
+            //     if (courseType) {
+            //         courseType.showSubDropdown = !courseType.showSubDropdown;
+            //     }
+            // },
             toggleSubDropdown(courseTypeName) {
                 if (this.currentOpenDropdown === courseTypeName) {
                     this.currentOpenDropdown = null; // Clicked the already open dropdown, so close it
@@ -153,8 +122,7 @@
                 }
             },
 
-// ================== Toggle de Checkbox functions ==================
-
+            // Toggle pour les checkbox
             toggleCategoryCheckbox(categoryName) {
                 for (const key in this.CategoryChecked) {
                     if (key !== categoryName) {
@@ -167,9 +135,11 @@
                         }
                     }
                 }
-                
                 // Toggle de la checkbox
                 this.CategoryChecked[categoryName] = !this.CategoryChecked[categoryName]
+                // On update le SelectedFilters array
+                // this.updateSelectedFilters(categoryName);
+
 
                 this.courseTypes.forEach(courseType => {
                     if (courseType.name !== categoryName) {
@@ -179,9 +149,9 @@
                 this.resetSubGroups()
                 this.handleEmits();
             },
-
             toggleSubGroupCheckbox(subGroupName) {
-                // console.log('clicked')
+                console.log('clicked')
+                // this.SubGroupChecked[subGroupName] = !this.SubGroupChecked[subGroupName]
                 for (const key in this.SubGroupChecked) {
                     if (key !== subGroupName) {
                         this.SubGroupChecked[key] = false;
@@ -192,14 +162,11 @@
                         }
                     }
                 }
-
                 // Toggle de la checkbox
                 this.SubGroupChecked[subGroupName] = !this.SubGroupChecked[subGroupName];
                 this.subGroupExists = Object.values(this.SubGroupChecked).some(val => val);
                 this.handleEmits();
             },
-
-// ================== Uncheck filters on close Functions ==================
 
             uncheckFilterPastille(filter) {
                 if (this.CategoryChecked[filter]) {
@@ -217,7 +184,6 @@
                 this.toggleSubDropdown(filter); // va actioner "toggleSubDropdown" si le filter clique a cette fonction associe
                 this.handleEmits();
             },
-
             resetSubGroups() {
                 for (const key in this.SubGroupChecked) {
                     this.SubGroupChecked[key] = false;
@@ -225,7 +191,6 @@
                 this.subGroupExists = false;
                 // this.handleEmits();
             },
-
             resetFilters() {
                 // on uncheck tous les filtres
                 for (const key in this.CategoryChecked) {
@@ -247,8 +212,7 @@
                 this.handleEmits();
             },
 
-// ================== handling of CSS Functions ==================
-
+            // Fonction pour le CSS de la section filtre
             handleBorders() {
                 const filterContainer = document.querySelector('.filter-container');
                 const wholeContainer = document.querySelector('.coursesType-menu');
@@ -256,15 +220,12 @@
                 wholeContainer.classList.toggle("container-border");
             },
 
-// ================== Emit Functions ==================
-
+            // On emit les selections
             handleEmits() {
                 this.$emit('selected-filters', {selectedFilters: this.selectedFilters});
                 this.$emit('sub-group-exists', {subGroupExists: this.subGroupExists});
             }
         },
-
-// ================== MOUNTED ==================
 
         mounted() {
             this.courseTypes.forEach(courseType => {
