@@ -41,11 +41,32 @@
                         {{ subGroupMenu.name }}
                     </span>
                     <div class="subGroupChoices-container">
-                        <span class="subGroupChoices">
-
-                        </span>
+                        <div class="subGroupChoices"
+                        v-for="subGroupChoice in getSubGroupChoice('Personal')"
+                        v-bind:key="subGroupChoice.name"
+                        v-on:click="toggleSubGroupChoiceCheckbox(subGroupChoice.name)">
+                            <input type="checkbox"
+                                v-bind:value="subGroupChoice.name"
+                                v-model="SubGroupChoiceChecked[subGroupChoice.name]">
+                            <div>{{ subGroupChoice.name }}
+                                <div v-if="SubGroupChoiceChecked[subGroupChoice.name]">
+                                    <span class="subGroupChoicesDetails"
+                                        v-for="subGroupChoiceDetail in getSubGroupChoiceDetails('Personal', subGroupChoice.name)"
+                                        v-bind:key="subGroupChoiceDetail.name"
+                                        v-on:click="toggleSubGroupChoiceDetailCheckbox(subGroupChoiceDetail.name)"
+                                        v-on:click.stop> <!-- tres important pour ne pas bubble up au parent, et trigger le v-on:click du parent -->
+                                        <input type="checkbox"
+                                            v-bind:value="subGroupChoiceDetail.name"
+                                            v-model="SubGroupChoiceDetailChecked[subGroupChoiceDetail.name]">
+                                            {{ subGroupChoiceDetail.name }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- ========== Sous-menu de WORK / SCHOOL ========== -->
                 <div class="subGroupsMenu-container" v-else-if="SubGroupChecked['Work / School'] && courseType.name === 'First Aid'">
                     <span class="subGroupsMenu"
                         v-for="subGroupMenu in getSubGroupMenu('Work / School')"
@@ -54,8 +75,15 @@
                         {{ subGroupMenu.name }}
                     </span>
                     <div class="subGroupChoices-container">
-                        <span class="subGroupChoices">
-
+                        <span class="subGroupChoices"
+                        v-for="subGroupChoice in getSubGroupChoice('Work / School')"
+                        v-bind:key="subGroupChoice.name"
+                        v-bind:value="subGroupChoice"
+                        v-on:click="toggleSubGroupChoiceCheckbox(subGroupChoice.name)">
+                            <input type="checkbox"
+                                v-bind:value="subGroupChoice.name"
+                                v-model="SubGroupChoiceChecked[subGroupChoice.name]">
+                            <span>{{ subGroupChoice.name }}</span>
                         </span>
                     </div>
                 </div>
@@ -86,16 +114,32 @@
                 courses: [],
                 courseTypes: [],
                 subGroups: [],
-                // selectedFilters: [],
                 showDropdown: false,
                 showSubDropdown: false,
                 currentOpenDropdown: null,
                 CategoryChecked: {},
                 SubGroupChecked: {},
+                SubGroupChoiceChecked: {},
+                SubGroupChoiceDetailChecked: {},
                 subGroupExists: false,
+                subGroupChoiceExists: false,
+                subGroupChoiceDetailExists: false,
             }
-                
         },
+
+        // watch: {
+        //     SubGroupChecked: {
+        //         handler(newSubGroupChecked) {
+        //             if (!Object.values(newSubGroupChecked).some(val => val)) {
+        //                 // If no checkbox in SubGroupChecked is checked
+        //                 for (const key in this.SubGroupChoiceChecked) {
+        //                     this.SubGroupChoiceChecked[key] = false;
+        //                 }
+        //             }
+        //         },
+        //         deep: true // Watch for changes in nested properties
+        //     }
+        // },
 
         computed: { // Beaucoup plus simple que de faire une fonction updateSelectedFilters...
             selectedFilters() {
@@ -112,6 +156,18 @@
                         selectedFilters.push(key);
                     }
                 }
+
+                for (const key in this.SubGroupChoiceChecked) {
+                    if (this.SubGroupChoiceChecked[key]) {
+                        selectedFilters.push(key);
+                    }
+                }
+
+                for (const key in this.SubGroupChoiceDetailChecked) {
+                    if (this.SubGroupChoiceDetailChecked[key]) {
+                        selectedFilters.push(key);
+                    }
+                }
                 
                 return selectedFilters;
             }
@@ -122,7 +178,7 @@
 // ================== Toggle de Menus secondaires functions ==================
 
             getSubGroupMenu(subGroupName) {
-                console.log(this.SubGroupChecked)
+                // console.log(this.SubGroupChecked)
                 let resultat = '';
                 const courseType = this.courseTypes.find(type => type.name === 'First Aid');
                 if (courseType) {
@@ -133,6 +189,37 @@
                 }
                 return resultat;
             },
+            getSubGroupChoice(subGroupChoiceName) {
+                // console.log(this.SubGroupChoiceChecked)
+                let subGroupChoices = [];
+                const courseType = this.courseTypes.find(type => type.name === 'First Aid');
+                if (courseType) {
+                    const subGroup = courseType.subGroups.find(group => group.name === subGroupChoiceName);
+                    if (subGroup && subGroup.subGroupMenu) {
+                        subGroupChoices = subGroup.subGroupMenu.flatMap(menu => menu.subGroupChoices || []);
+                    }
+                }
+                return subGroupChoices;
+            },
+            getSubGroupChoiceDetails(subGroupName, subGroupChoiceName) {
+            let subGroupChoiceDetails = [];
+            const courseType = this.courseTypes.find(type => type.name === 'First Aid');
+            if (courseType) {
+                const subGroup = courseType.subGroups.find(group => group.name === subGroupName);
+                if (subGroup && subGroup.subGroupMenu) {
+                    const subGroupMenu = subGroup.subGroupMenu.find(menu => menu.name === 'Courses to Help');
+                    if (subGroupMenu && subGroupMenu.subGroupChoices) {
+                        const subGroupChoice = subGroupMenu.subGroupChoices.find(choice => choice.name === subGroupChoiceName);
+                        if (subGroupChoice && subGroupChoice.subGroupChoiceDetails) {
+                            subGroupChoiceDetails = subGroupChoice.subGroupChoiceDetails;
+                        }
+                    }
+                }
+            }
+            // console.log('GetSubDetails : ', subGroupChoiceDetails);
+            return subGroupChoiceDetails;
+        },
+
 
 // ================== Toggle pour les menu dropdown functions ==================
 
@@ -170,7 +257,6 @@
                 
                 // Toggle de la checkbox
                 this.CategoryChecked[categoryName] = !this.CategoryChecked[categoryName]
-
                 this.courseTypes.forEach(courseType => {
                     if (courseType.name !== categoryName) {
                         courseType.showSubDropdown = false;
@@ -181,7 +267,14 @@
             },
 
             toggleSubGroupCheckbox(subGroupName) {
-                // console.log('clicked')
+                for (const key in this.SubGroupChoiceChecked) { // VA DEVOIR FAIRE SIMILAIRE POUR L'AUTRE GROUPE DE MENU PLUS BAS... CEST CE QUI RESET SI TU CHOISIS UN AUTRE CHOIX PLUS HAUT
+                    this.SubGroupChoiceChecked[key] = false;
+                }
+
+                for (const key in this.SubGroupChoiceDetailChecked) {
+                    this.SubGroupChoiceDetailChecked[key] = false;
+                }
+
                 for (const key in this.SubGroupChecked) {
                     if (key !== subGroupName) {
                         this.SubGroupChecked[key] = false;
@@ -199,6 +292,50 @@
                 this.handleEmits();
             },
 
+            toggleSubGroupChoiceCheckbox(subGroupChoiceName) {
+                // console.log( 'Choice est Toggle')
+                for (const key in this.SubGroupChoiceChecked) {
+                    if (key !== subGroupChoiceName) {
+                        this.SubGroupChoiceChecked[key] = false;
+
+                        const index = this.selectedFilters.indexOf(key);
+                        if (index !== -1) {
+                            this.selectedFilters.splice(index, 1);
+                            // console.log(this.selectedFilters)
+                        }
+                    }
+                }
+
+                for (const key in this.SubGroupChoiceDetailChecked) {
+                    this.SubGroupChoiceDetailChecked[key] = false;
+                }
+
+                // Toggle de la checbox
+                this.SubGroupChoiceChecked[subGroupChoiceName] = !this.SubGroupChoiceChecked[subGroupChoiceName];
+                this.subGroupChoiceExists = Object.values(this.SubGroupChoiceChecked).some(val => val);
+                // console.log(this.subGroupChoiceExists)
+                this.handleEmits();
+            },
+
+            toggleSubGroupChoiceDetailCheckbox(subGroupChoiceDetailName) {
+                for (const key in this.SubGroupChoiceDetailChecked) {
+                    if (key !== subGroupChoiceDetailName) {
+                        this.SubGroupChoiceDetailChecked[key] = false;
+
+                        const index = this.selectedFilters.indexOf(key);
+                        if (index !== -1) {
+                            this.selectedFilters.splice(index, 1);
+                        }
+                    }
+                }
+
+                // Toggle the checkbox
+                this.SubGroupChoiceDetailChecked[subGroupChoiceDetailName] = !this.SubGroupChoiceDetailChecked[subGroupChoiceDetailName];
+                this.subGroupChoiceDetailExists = Object.values(this.SubGroupChoiceDetailChecked).some(val => val);
+                // console.log('DetailValue on ToggleDetailCheckbox : ', this.subGroupChoiceDetailExists)
+                this.handleEmits();
+            },
+
 // ================== Uncheck filters on close Functions ==================
 
             uncheckFilterPastille(filter) {
@@ -207,6 +344,12 @@
                 } else if (this.SubGroupChecked[filter]) {
                     this.SubGroupChecked[filter] = false;
                     this.subGroupExists = false;
+                } else if (this.SubGroupChoiceChecked[filter]) {
+                    this.SubGroupChoiceChecked[filter] = false;
+                    this.subGroupChoiceExists = false;
+                } else if (this.SubGroupChoiceDetailChecked[filter]) {
+                    this.SubGroupChoiceDetailChecked[filter] = false;
+                    this.subGroupChoiceDetailExists = false;
                 }
 
                 const index = this.selectedFilters.indexOf(filter); // bien que le "check" soit removed avec uncheckFilterPastille, il faut supprimer la valeur du array selectedFilters avec splice
@@ -223,6 +366,8 @@
                     this.SubGroupChecked[key] = false;
                 }
                 this.subGroupExists = false;
+                this.subGroupChoiceExists = false;
+                this.subGroupChoiceDetailExists = false;
                 // this.handleEmits();
             },
 
@@ -234,6 +379,12 @@
                 for (const key in this.SubGroupChecked) {
                     this.SubGroupChecked[key] = false;
                 }
+                for (const key in this.SubGroupChoiceChecked) {
+                    this.SubGroupChoiceChecked[key] = false;
+                }
+                for (const key in this.SubGroupChoiceDetailChecked) {
+                    this.SubGroupChoiceDetailChecked[key] = false;
+                }
 
                 // on vide le array selectedFilters
                 this.selectedFilters = [];
@@ -244,8 +395,18 @@
                 })
 
                 this.subGroupExists = false;
+                this.subGroupChoiceExists = false;
+                this.subGroupChoiceDetailExists = false;
                 this.handleEmits();
             },
+
+            // clearSubGroupChoiceSelections() {
+            //     for (const key in this.SubGroupChoiceChecked) {
+            //         this.SubGroupChoiceChecked[key] = false;
+            //     }
+            //     this.subGroupChoiceExists = false;
+            //     this.handleEmits();
+            // },
 
 // ================== handling of CSS Functions ==================
 
@@ -261,6 +422,8 @@
             handleEmits() {
                 this.$emit('selected-filters', {selectedFilters: this.selectedFilters});
                 this.$emit('sub-group-exists', {subGroupExists: this.subGroupExists});
+                this.$emit('sub-group-choice-exists', {subGroupChoiceExists: this.subGroupChoiceExists});
+                this.$emit('sub-group-choice-details-exists', {subGroupChoiceDetailExists: this.subGroupChoiceDetailExists});
             }
         },
 

@@ -11,7 +11,7 @@
     align-items: flex-start;
     justify-content: center;
     box-sizing: border-box;
-    width: 310px;
+    width: 320px;
     height: fit-content;
     padding: 0 0 10px 0;
 
@@ -96,13 +96,58 @@
 
 /* ================== SUBGROUPS MENU ================== */
 
+.subGroupsMenu-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.subGroupsMenu-container .subGroupsMenu {
+    display: flex;
+    justify-content: flex-start;
+}
+
 .subGroups-container .subGroupsMenu-container {
     padding-left: 0;
 }
 
 .subGroupsMenu {
     font-weight: bold;
-    margin: 10px 0;
+    margin-top: 10px;
+}
+
+/* ================== SUBGROUPS CHOICES ================== */
+
+.subGroupChoices-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+.subGroupChoices {
+    display: flex;
+    gap: 10px;
+}
+
+.subGroupChoices > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.subGroupChoices > div > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.subGroupChoices input {
+    height: fit-content;
+}
+
+.subGroupChoicesDetails {
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+    padding-right: 27px;
 }
 
 /* pastilles */

@@ -11,6 +11,7 @@
             "duration": "3:00",
             "deliveryMethod": "In Class",
             "trainingPartner": "CRCS Online Course",
+            "subGroupChoice": "No",
             "language": "French",
             "price": 100,
             "popular": true
@@ -20,6 +21,72 @@
             "title": "Deuxieme cours",
             "courseType": "First Aid",
             "subGroup": "Work / School",
+            "date": "2023-09-29",
+            "startTime": "6:00 PM",
+            "endTime": "10:00 PM",
+            "duration": "3:00",
+            "deliveryMethod": "Online",
+            "trainingPartner": "CRCS Online Course",
+            "subGroupChoice": "Yes",
+            "language": "French",
+            "price": 100,
+            "popular": true
+        },
+        { 
+            "id": 3,
+            "title": "troisieme cours",
+            "courseType": "First Aid",
+            "subGroup": "Personal",
+            "date": "2023-09-29",
+            "startTime": "6:00 PM",
+            "endTime": "10:00 PM",
+            "duration": "3:00",
+            "deliveryMethod": "Online",
+            "trainingPartner": "CRCS Online Course",
+            "subGroupChoice":  "Children",
+            "subGroupChoiceDetail": "Child Care Standard First Aid CPR B",
+            "language": "French",
+            "price": 100,
+            "popular": true
+        },
+        { 
+            "id": 4,
+            "title": "quatrieme cours",
+            "courseType": "First Aid",
+            "subGroup": "Personal",
+            "date": "2023-09-29",
+            "startTime": "6:00 PM",
+            "endTime": "10:00 PM",
+            "duration": "3:00",
+            "deliveryMethod": "Online",
+            "trainingPartner": "CRCS Online Course",
+            "subGroupChoice":  "Adult",
+            "subGroupChoiceDetail": "Marine First Aid",
+            "language": "French",
+            "price": 100,
+            "popular": true
+        },
+        { 
+            "id": 5,
+            "title": "cinquieme cours",
+            "courseType": "First Aid",
+            "subGroup": "Personal",
+            "date": "2023-09-29",
+            "startTime": "6:00 PM",
+            "endTime": "10:00 PM",
+            "duration": "3:00",
+            "deliveryMethod": "Online",
+            "trainingPartner": "CRCS Online Course",
+            "subGroupChoice":  "Both",
+            "subGroupChoiceDetail": "CPR C",
+            "language": "French",
+            "price": 100,
+            "popular": true
+        },
+        { 
+            "id": 6,
+            "title": "sixieme cours",
+            "courseType": "CPR",
             "date": "2023-09-29",
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
@@ -44,7 +111,7 @@
                             "subGroupChoices": [
                                 {
                                     "name": "Children",
-                                    "subGroupsChoicesDetails" : [
+                                    "subGroupChoiceDetails" : [
                                         {
                                             "name": "Child Care Standard First Aid CPR B"
                                         },
@@ -55,7 +122,7 @@
                                 },
                                 {
                                     "name": "Adult",
-                                    "subGroupsChoicesDetails" : [
+                                    "subGroupChoiceDetails" : [
                                         {
                                             "name": "First Aid & CPR"
                                         },
@@ -69,7 +136,7 @@
                                 },
                                 {
                                     "name": "Both",
-                                    "subGroupsChoicesDetails" : [
+                                    "subGroupChoiceDetails" : [
                                         {
                                             "name": "CPR C"
                                         },
@@ -93,7 +160,7 @@
                             "subGroupChoices": [
                                 {
                                     "name": "Yes",
-                                    "subGroupsChoicesDetails": [
+                                    "subGroupChoiceDetails": [
                                         {
                                             "name": "Basic Life Support"
                                         },
@@ -122,7 +189,7 @@
                                 },
                                 {
                                     "name": "No",
-                                    "subGroupsChoicesDetails": [
+                                    "subGroupChoiceDetails": [
                                         {
                                             "name": "First Aid & CPR"
                                         },

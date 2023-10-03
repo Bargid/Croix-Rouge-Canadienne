@@ -1,14 +1,27 @@
 <template>
 
     <Calendar v-on:selected-dates="handleSelectedDates"/> <!-- On ecoute le $emit de calendar -->
-    <SelectFilters v-on:selected-filters="handleSelectedFilters" v-on:sub-group-exists="handleSubGroupExists"/>
+    <SelectFilters v-on:selected-filters="handleSelectedFilters" 
+                   v-on:sub-group-exists="handleSubGroupExists" 
+                   v-on:sub-group-choice-exists="handleSubGroupChoiceExists"
+                   v-on:sub-group-choice-details-exists="handleSubGroupChoiceDetailExists"/>
 
     <h1>Courses</h1>
     
-    <div v-if="!subGroupExists" v-for="course in CourseTypeMatching" :key="course.id">
+    <div v-if="!subGroupExists" v-for="course in CourseTypeMatching" v-bind:key="course.id">
+        <p>1er groupe</p>
         <p>{{ course.title }}</p>
     </div>
-    <div v-for="course in subGroupMatching" v-bind:key="course.id">
+    <div v-if="!subGroupChoiceExists" v-for="course in subGroupMatching" v-bind:key="course.id">
+        <p>2eme groupe</p>
+        <p>{{ course.title }}</p>
+    </div>
+    <div v-if="!subGroupChoiceDetailExists" v-for="course in subGroupChoiceMatching" v-bind:key="course.id">
+        <p>3eme groupe</p>
+        <p>{{ course.title }}</p>
+    </div>
+    <div v-for="course in subGroupChoiceDetailMatching" v-bind:key="course.id">
+        <p>4eme groupe</p>
         <p>{{ course.title }}</p>
     </div>
 
@@ -30,7 +43,8 @@ import SelectFilters from '@/components/SelectFilters.vue';
                 selectedFilters: [],
                 subGroup: [],
                 subGroupExists: false,
-
+                subGroupChoiceExists: false,
+                subGroupChoiceDetailExists: false,
             }
         },
 
@@ -42,12 +56,20 @@ import SelectFilters from '@/components/SelectFilters.vue';
             },
             handleSelectedFilters(filters) {
                 this.selectedFilters = filters.selectedFilters;
-                console.log('Received :', filters)
+                // console.log('Received :', filters)
             },
             handleSubGroupExists(value) {
                 this.subGroupExists = value.subGroupExists;
-                console.log('Received :', value)
-            }
+                // console.log('Received :', value)
+            },
+            handleSubGroupChoiceExists(value) {
+                this.subGroupChoiceExists = value.subGroupChoiceExists;
+                // console.log('Received :', value)
+            },
+            handleSubGroupChoiceDetailExists(value) {
+                this.subGroupChoiceDetailExists = value.subGroupChoiceDetailExists;
+                console.log('handleSubGroupChoiceDetailExists :', value)
+            },
         },
         computed: {
             filteredCourses() {
@@ -62,7 +84,8 @@ import SelectFilters from '@/components/SelectFilters.vue';
                 return [];
             },
             CourseTypeMatching() {
-                console.log(this.subGroupExists)
+                // console.log(this.subGroupExists)
+                console.log('Course subGroupChoiceExists : ', this.subGroupChoiceExists)
                 const courseType = [];
                 if (this.selectedFilters.length > 0) {
                     return this.courses.filter(course => {
@@ -81,17 +104,47 @@ import SelectFilters from '@/components/SelectFilters.vue';
                 }
             },
             subGroupMatching() {
-                console.log(this.subGroupExists)
                 const subGroup = [];
-                // console.log('subGroupMatching')
                 if (this.selectedFilters.length > 0) {
                     return this.courses.filter(course => {
                         for (const key in course) {
                             if (key == 'subGroup') {
                                 if (this.selectedFilters.includes(course[key])) {
                                     subGroup.push(course)
-                                    // this.subGroupExists = true;
-                                    // console.log(this.subGroupExists)
+                                    return true;
+                                }
+                            }
+                        }
+                        return false;
+                    })
+                }
+            },
+            subGroupChoiceMatching() {
+                const subGroupChoice = [];
+                if (this.selectedFilters.length > 0) {
+                    return this.courses.filter(course => {
+                        for (const key in course) {
+                            if (key == 'subGroupChoice') {
+                                if (this.selectedFilters.includes(course[key])) {
+                                    subGroupChoice.push(course)
+                                    return true;
+                                }
+                            }
+                        }
+                        return false;
+                    })
+                }
+            },
+            subGroupChoiceDetailMatching() {
+                // console.log('subGroupChoiceDetailExists : ', this.subGroupChoiceDetailExists)
+                const subGroupChoiceDetail = [];
+                if (this.selectedFilters.length > 0) {
+                    return this.courses.filter(course => {
+                        for (const key in course) {
+                            if (key == 'subGroupChoiceDetail') {
+                                if (this.selectedFilters.includes(course[key])) {
+                                    subGroupChoiceDetail.push(course)
+                                    console.log ( 'ligne 155 : ', this.subGroupChoiceDetailExists)
                                     return true;
                                 }
                             }
@@ -100,23 +153,6 @@ import SelectFilters from '@/components/SelectFilters.vue';
                     })
                 }
             }
-            // tagMatching() {
-            //     const matchingCourses = [];
-            //     const excludedKeys = ['id', 'date']
-            //     return this.courses.filter(course => {
-            //         for (const key in course) { // on check si une valeur du array selecetedFilters est egale a une propriete des objet
-            //             if (!excludedKeys.includes(key)) {
-            //                 for (const selectedFilter of this.selectedFilters)
-            //                 if (course[key] === selectedFilter) {
-            //                     console.log('Match :', selectedFilter)
-            //                     matchingCourses.push(course);
-            //                     break;
-            //                 }
-            //             }
-            //         }
-            //         return matchingCourses;
-            //     });
-            // }
         },
 
         mounted() {
