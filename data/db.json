@@ -5,14 +5,14 @@
             "title": "CPR / Automated External Defibrillator",
             "courseType": "First Aid",
             "subGroup": "Personal",
-            "date": "2023-09-26",
+            "date": "2023-10-06",
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
-            "deliveryMethod": "In Class",
+            "deliveryMethod": "In-Class",
             "trainingPartner": "CRCS Online Course",
             "subGroupChoice": "No",
-            "language": "French",
+            "language": "Both",
             "price": 100,
             "popular": true
         },
@@ -21,7 +21,7 @@
             "title": "Deuxieme cours",
             "courseType": "First Aid",
             "subGroup": "Work / School",
-            "date": "2023-09-29",
+            "date": "2023-10-09",
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
@@ -37,15 +37,15 @@
             "title": "troisieme cours",
             "courseType": "First Aid",
             "subGroup": "Personal",
-            "date": "2023-09-29",
+            "date": "2023-10-29",
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
-            "deliveryMethod": "Online",
+            "deliveryMethod": "Live Event (instructor Led)",
             "trainingPartner": "CRCS Online Course",
             "subGroupChoice":  "Children",
             "subGroupChoiceDetail": "Child Care Standard First Aid CPR B",
-            "language": "French",
+            "language": "English",
             "price": 100,
             "popular": true
         },
@@ -54,11 +54,11 @@
             "title": "quatrieme cours",
             "courseType": "First Aid",
             "subGroup": "Personal",
-            "date": "2023-09-29",
+            "date": "2023-10-13",
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
-            "deliveryMethod": "Online",
+            "deliveryMethod": "Online / In-Class",
             "trainingPartner": "CRCS Online Course",
             "subGroupChoice":  "Adult",
             "subGroupChoiceDetail": "Marine First Aid",
@@ -71,7 +71,7 @@
             "title": "cinquieme cours",
             "courseType": "First Aid",
             "subGroup": "Personal",
-            "date": "2023-09-29",
+            "date": "2023-10-11",
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
@@ -79,7 +79,7 @@
             "trainingPartner": "CRCS Online Course",
             "subGroupChoice":  "Both",
             "subGroupChoiceDetail": "CPR C",
-            "language": "French",
+            "language": "English",
             "price": 100,
             "popular": true
         },
@@ -87,13 +87,13 @@
             "id": 6,
             "title": "sixieme cours",
             "courseType": "CPR",
-            "date": "2023-09-29",
+            "date": "2023-10-21",
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
-            "deliveryMethod": "Online",
+            "deliveryMethod": "In-Class",
             "trainingPartner": "CRCS Online Course",
-            "language": "French",
+            "language": "Both",
             "price": 100,
             "popular": true
         }
@@ -222,5 +222,30 @@
         {
             "name": "Fire Safety"
         }
+    ],
+
+    "deliveryMethods": [
+        {
+            "name": "Online"
+        },
+        {
+            "name": "In-Class"
+        },
+        {
+            "name": "Online / In-Class"
+        },
+        {
+            "name": "Live Event (instructor Led)"
+        }
+    ],
+
+    "languages": [
+        {
+            "name": "French"
+        },
+        {
+            "name": "English"
+        }
     ]
+
 }

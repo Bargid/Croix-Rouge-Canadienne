@@ -91,14 +91,39 @@
         </nav>
 
         <!-- Menu de filtre horizontale -->
-        <div class="horizontal-filters-container">
-            <span class="reset-tag"
-                v-on:click="resetFilters()"> Reset </span>
-            <span class="pastille-tag" 
-                v-for="(filter, index) in selectedFilters" 
-                v-bind:key="index"
-                v-on:click="uncheckFilterPastille(filter)">
-                {{ filter }}</span>
+        <div class="horizontal-menus-container">
+            <div class="horizontal-filters-container">
+                <span><img src="../assets/Icons/filters.svg" alt="Filters">Filters</span>
+                <select name="Delivery Methods" id=""
+                    v-model="selectedDeliveryMethod" 
+                    v-on:change="handleEmits"> 
+                    <option value=""> All Delivery Methods </option>
+                    <option v-for="method in deliveryMethods"
+                            v-bind:key="method.name" 
+                            v-bind:value="method.name">
+                            {{ method.name }}
+                        </option>
+                </select>
+                <select name="Languages" id=""
+                    v-model="selectedLanguages" 
+                    v-on:change="handleEmits"> 
+                    <option value=""> Both Languages </option>
+                    <option v-for="language in languages"
+                            v-bind:key="language.name" 
+                            v-bind:value="language.name">
+                            {{ language.name }}
+                        </option>
+                </select>
+            </div>
+            <div class="horizontal-tags-container">
+                <span class="reset-tag"
+                    v-on:click="resetFilters()"> Reset </span>
+                <span class="pastille-tag"
+                    v-for="(filter, index) in selectedFilters"
+                    v-bind:key="index"
+                    v-on:click="uncheckFilterPastille(filter)">
+                    {{ filter }}</span>
+            </div>
         </div>
 
     </section>
@@ -114,6 +139,12 @@
                 courses: [],
                 courseTypes: [],
                 subGroups: [],
+
+                deliveryMethods: [],
+                selectedDeliveryMethod: '',
+                languages: [],
+                selectedLanguages: '',
+
                 showDropdown: false,
                 showSubDropdown: false,
                 currentOpenDropdown: null,
@@ -126,20 +157,6 @@
                 subGroupChoiceDetailExists: false,
             }
         },
-
-        // watch: {
-        //     SubGroupChecked: {
-        //         handler(newSubGroupChecked) {
-        //             if (!Object.values(newSubGroupChecked).some(val => val)) {
-        //                 // If no checkbox in SubGroupChecked is checked
-        //                 for (const key in this.SubGroupChoiceChecked) {
-        //                     this.SubGroupChoiceChecked[key] = false;
-        //                 }
-        //             }
-        //         },
-        //         deep: true // Watch for changes in nested properties
-        //     }
-        // },
 
         computed: { // Beaucoup plus simple que de faire une fonction updateSelectedFilters...
             selectedFilters() {
@@ -168,6 +185,10 @@
                         selectedFilters.push(key);
                     }
                 }
+                
+                // if (this.selectedDeliveryMethod) {
+                //     selectedFilters.push(this.selectedDeliveryMethod)
+                // }
                 
                 return selectedFilters;
             }
@@ -202,23 +223,22 @@
                 return subGroupChoices;
             },
             getSubGroupChoiceDetails(subGroupName, subGroupChoiceName) {
-            let subGroupChoiceDetails = [];
-            const courseType = this.courseTypes.find(type => type.name === 'First Aid');
-            if (courseType) {
-                const subGroup = courseType.subGroups.find(group => group.name === subGroupName);
-                if (subGroup && subGroup.subGroupMenu) {
-                    const subGroupMenu = subGroup.subGroupMenu.find(menu => menu.name === 'Courses to Help');
-                    if (subGroupMenu && subGroupMenu.subGroupChoices) {
-                        const subGroupChoice = subGroupMenu.subGroupChoices.find(choice => choice.name === subGroupChoiceName);
-                        if (subGroupChoice && subGroupChoice.subGroupChoiceDetails) {
-                            subGroupChoiceDetails = subGroupChoice.subGroupChoiceDetails;
+                let subGroupChoiceDetails = [];
+                const courseType = this.courseTypes.find(type => type.name === 'First Aid');
+                if (courseType) {
+                    const subGroup = courseType.subGroups.find(group => group.name === subGroupName);
+                    if (subGroup && subGroup.subGroupMenu) {
+                        const subGroupMenu = subGroup.subGroupMenu.find(menu => menu.name === 'Courses to Help');
+                        if (subGroupMenu && subGroupMenu.subGroupChoices) {
+                            const subGroupChoice = subGroupMenu.subGroupChoices.find(choice => choice.name === subGroupChoiceName);
+                            if (subGroupChoice && subGroupChoice.subGroupChoiceDetails) {
+                                subGroupChoiceDetails = subGroupChoice.subGroupChoiceDetails;
+                            }
                         }
                     }
                 }
-            }
-            // console.log('GetSubDetails : ', subGroupChoiceDetails);
-            return subGroupChoiceDetails;
-        },
+                return subGroupChoiceDetails;
+            },
 
 
 // ================== Toggle pour les menu dropdown functions ==================
@@ -339,17 +359,49 @@
 // ================== Uncheck filters on close Functions ==================
 
             uncheckFilterPastille(filter) {
-                if (this.CategoryChecked[filter]) {
-                    this.CategoryChecked[filter] = false;
-                } else if (this.SubGroupChecked[filter]) {
-                    this.SubGroupChecked[filter] = false;
-                    this.subGroupExists = false;
-                } else if (this.SubGroupChoiceChecked[filter]) {
-                    this.SubGroupChoiceChecked[filter] = false;
-                    this.subGroupChoiceExists = false;
-                } else if (this.SubGroupChoiceDetailChecked[filter]) {
-                    this.SubGroupChoiceDetailChecked[filter] = false;
-                    this.subGroupChoiceDetailExists = false;
+                // if (this.CategoryChecked[filter]) {
+                //     this.CategoryChecked[filter] = false;
+                //     this.SubGroupChecked = {};
+                //     this.SubGroupChoiceChecked = {};
+                //     this.SubGroupChoiceDetailChecked = {};
+
+                // } else if (this.SubGroupChecked[filter]) {
+                //     this.SubGroupChecked[filter] = false;
+                //     this.subGroupExists = false;
+                //     this.SubGroupChoiceChecked = {};
+                //     this.SubGroupChoiceDetailChecked = {};
+
+                // } else if (this.SubGroupChoiceChecked[filter]) {
+                //     this.SubGroupChoiceChecked[filter] = false;
+                //     this.subGroupChoiceExists = false;
+                //     this.SubGroupChoiceDetailChecked = {};
+
+                // } else if (this.SubGroupChoiceDetailChecked[filter]) {
+                //     this.SubGroupChoiceDetailChecked[filter] = false;
+                //     this.subGroupChoiceDetailExists = false;
+                // }
+
+                const filterObjects = [this.CategoryChecked, this.SubGroupChecked, this.SubGroupChoiceChecked, this.SubGroupChoiceDetailChecked];
+
+                for (const filterObject of filterObjects) { // On passe au travers de chaque objet du array et turn false ou vide selon les conditions
+                    if (filterObject[filter]) {
+                        filterObject[filter] = false;
+
+                        if (filterObject == this.CategoryChecked) {
+                            this.SubGroupChecked = {};
+                            this.SubGroupChoiceChecked = {};
+                            this.SubGroupChoiceDetailChecked = {};
+                        }
+
+                        if (filterObject === this.SubGroupChecked) {
+                            this.SubGroupChoiceChecked = {};
+                            this.SubGroupChoiceDetailChecked = {};
+                        }
+
+                        if (filterObject === this.SubGroupChoiceChecked) {
+                            this.SubGroupChoiceDetailChecked = {};
+                        }
+                    }
                 }
 
                 const index = this.selectedFilters.indexOf(filter); // bien que le "check" soit removed avec uncheckFilterPastille, il faut supprimer la valeur du array selectedFilters avec splice
@@ -421,6 +473,8 @@
 
             handleEmits() {
                 this.$emit('selected-filters', {selectedFilters: this.selectedFilters});
+                this.$emit('selected-delivery-method', {selectedDeliveryMethod: this.selectedDeliveryMethod});
+                this.$emit('selected-languages', {selectedLanguages: this.selectedLanguages});
                 this.$emit('sub-group-exists', {subGroupExists: this.subGroupExists});
                 this.$emit('sub-group-choice-exists', {subGroupChoiceExists: this.subGroupChoiceExists});
                 this.$emit('sub-group-choice-details-exists', {subGroupChoiceDetailExists: this.subGroupChoiceDetailExists});
@@ -444,6 +498,16 @@
                 .then((res) => res.json())
                 .then(data => this.courseTypes = data)
                 .catch(err => console.log(err.message))
+
+            fetch('http://localhost:3000/deliveryMethods')
+                .then((res) => res.json())
+                .then(data => this.deliveryMethods = data)
+                .catch(err=> console.log(err.message))
+
+            fetch('http://localhost:3000/languages')
+                .then((res) => res.json())
+                .then(data => this.languages = data)
+                .catch(err=> console.log(err.message))
         }
     }
 </script>

@@ -150,6 +150,30 @@
     padding-right: 27px;
 }
 
+/* ================== HORIZONTAL FILTERS ================== */
+
+.horizontal-menus-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 15px;
+}
+
+.horizontal-filters-container {
+    display: flex;
+    gap: 10px;
+}
+
+.horizontal-filters-container img {
+    width: 20px;
+    height: 20px;
+}
+
+.horizontal-filters-container span {
+    display: flex;
+    gap: 10px;
+}
+
 /* pastilles */
 
 .pastille-tag {
