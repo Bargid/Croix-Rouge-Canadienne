@@ -9,6 +9,7 @@
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
+            "certification": "Certified",
             "deliveryMethod": "In-Class",
             "trainingPartner": "CRCS Online Course",
             "subGroupChoice": "No",
@@ -25,6 +26,7 @@
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
+            "certification": "Quick Learning",
             "deliveryMethod": "Online",
             "trainingPartner": "CRCS Online Course",
             "subGroupChoice": "Yes",
@@ -41,6 +43,7 @@
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
+            "certification": "Both",
             "deliveryMethod": "Live Event (instructor Led)",
             "trainingPartner": "CRCS Online Course",
             "subGroupChoice":  "Children",
@@ -58,6 +61,7 @@
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
+            "certification": "Certified",
             "deliveryMethod": "Online / In-Class",
             "trainingPartner": "CRCS Online Course",
             "subGroupChoice":  "Adult",
@@ -75,6 +79,7 @@
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
+            "certification": "Quick Learning",
             "deliveryMethod": "Online",
             "trainingPartner": "CRCS Online Course",
             "subGroupChoice":  "Both",
@@ -91,6 +96,7 @@
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
+            "certification": "Both",
             "deliveryMethod": "In-Class",
             "trainingPartner": "CRCS Online Course",
             "language": "Both",
@@ -245,6 +251,15 @@
         },
         {
             "name": "English"
+        }
+    ],
+
+    "certifications": [
+        {
+            "name": "Certified"
+        },
+        {
+            "name": "Quick Learning"
         }
     ]
 

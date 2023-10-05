@@ -89,50 +89,31 @@
                 </div>
             </div>
         </nav>
-
-        <!-- Menu de filtre horizontale -->
-        <div class="horizontal-menus-container">
-            <div class="horizontal-filters-container">
-                <span><img src="../assets/Icons/filters.svg" alt="Filters">Filters</span>
-                <select name="Delivery Methods" id=""
-                    v-model="selectedDeliveryMethod" 
-                    v-on:change="handleEmits"> 
-                    <option value=""> All Delivery Methods </option>
-                    <option v-for="method in deliveryMethods"
-                            v-bind:key="method.name" 
-                            v-bind:value="method.name">
-                            {{ method.name }}
-                        </option>
-                </select>
-                <select name="Languages" id=""
-                    v-model="selectedLanguages" 
-                    v-on:change="handleEmits"> 
-                    <option value=""> Both Languages </option>
-                    <option v-for="language in languages"
-                            v-bind:key="language.name" 
-                            v-bind:value="language.name">
-                            {{ language.name }}
-                        </option>
-                </select>
-            </div>
-            <div class="horizontal-tags-container">
-                <span class="reset-tag"
-                    v-on:click="resetFilters()"> Reset </span>
-                <span class="pastille-tag"
-                    v-for="(filter, index) in selectedFilters"
-                    v-bind:key="index"
-                    v-on:click="uncheckFilterPastille(filter)">
-                    {{ filter }}</span>
-            </div>
-        </div>
-
     </section>
+
+    <HorizontalFilters 
+                   v-on:selected-delivery-method="handleDeliveryMethod"
+                   v-on:selected-languages="handleLanguages"
+                   v-on:selected-certifications="handleCertifications"/>
+
+    <div class="horizontal-tags-container">
+        <span class="reset-tag"
+            v-on:click="resetFilters()"> Reset </span>
+        <span class="pastille-tag"
+            v-for="(filter, index) in selectedFilters"
+            v-bind:key="index"
+            v-on:click="uncheckFilterPastille(filter)">
+            {{ filter }}</span>
+    </div>
 
 </template>
 
 <script>
+    import HorizontalFilters from '@/components/HorizontalFilters.vue';
+
     export default {
         name: 'SelectFilters',
+        components: { HorizontalFilters },
 
         data() {
             return {
@@ -144,6 +125,8 @@
                 selectedDeliveryMethod: '',
                 languages: [],
                 selectedLanguages: '',
+                certifications: [],
+                selectedCertification: '',
 
                 showDropdown: false,
                 showSubDropdown: false,
@@ -195,6 +178,25 @@
         },
 
         methods: {
+
+// ================== Emit from children Handling ==================
+
+            handleDeliveryMethod(value) {
+                this.selectedDeliveryMethod = value.selectedDeliveryMethod;
+                this.$emit('selected-delivery-method', value);
+
+                // console.log(this.selectedDeliveryMethod)
+            },
+            handleLanguages(value) {
+                this.selectedLanguages = value.selectedLanguages;
+                this.$emit('selected-languages', value);
+                // console.log(this.selectedLanguages)
+            },
+            handleCertifications(value) {
+                this.selectedCertifications = value.selectedCertifications;
+                this.$emit('selected-certifications', value)
+                // console.log(this.selectedCertifications)
+            },
 
 // ================== Toggle de Menus secondaires functions ==================
 
@@ -359,49 +361,44 @@
 // ================== Uncheck filters on close Functions ==================
 
             uncheckFilterPastille(filter) {
-                // if (this.CategoryChecked[filter]) {
-                //     this.CategoryChecked[filter] = false;
-                //     this.SubGroupChecked = {};
-                //     this.SubGroupChoiceChecked = {};
-                //     this.SubGroupChoiceDetailChecked = {};
 
-                // } else if (this.SubGroupChecked[filter]) {
-                //     this.SubGroupChecked[filter] = false;
-                //     this.subGroupExists = false;
-                //     this.SubGroupChoiceChecked = {};
-                //     this.SubGroupChoiceDetailChecked = {};
+                // const filterObjects = [this.CategoryChecked, this.SubGroupChecked, this.SubGroupChoiceChecked, this.SubGroupChoiceDetailChecked];
 
-                // } else if (this.SubGroupChoiceChecked[filter]) {
-                //     this.SubGroupChoiceChecked[filter] = false;
-                //     this.subGroupChoiceExists = false;
-                //     this.SubGroupChoiceDetailChecked = {};
+                // for (const filterObject of filterObjects) { // On passe au travers de chaque objet du array et turn false ou vide selon les conditions
+                //     if (filterObject[filter]) {
+                //         filterObject[filter] = false;
 
-                // } else if (this.SubGroupChoiceDetailChecked[filter]) {
-                //     this.SubGroupChoiceDetailChecked[filter] = false;
-                //     this.subGroupChoiceDetailExists = false;
+                //         if (filterObject == this.CategoryChecked) {
+                //             this.SubGroupChecked = {};
+                //             this.SubGroupChoiceChecked = {};
+                //             this.SubGroupChoiceDetailChecked = {};
+                //         }
+
+                //         if (filterObject === this.SubGroupChecked) {
+                //             this.SubGroupChoiceChecked = {};
+                //             this.SubGroupChoiceDetailChecked = {};
+                //         }
+
+                //         if (filterObject === this.SubGroupChoiceChecked) {
+                //             this.SubGroupChoiceDetailChecked = {};
+                //         }
+                //     }
                 // }
 
-                const filterObjects = [this.CategoryChecked, this.SubGroupChecked, this.SubGroupChoiceChecked, this.SubGroupChoiceDetailChecked];
+                if (this.CategoryChecked[filter]) {
+                    this.CategoryChecked[filter] = false;
 
-                for (const filterObject of filterObjects) { // On passe au travers de chaque objet du array et turn false ou vide selon les conditions
-                    if (filterObject[filter]) {
-                        filterObject[filter] = false;
+                } else if (this.SubGroupChecked[filter]) {
+                    this.SubGroupChecked[filter] = false;
+                    this.subGroupExists = false;
 
-                        if (filterObject == this.CategoryChecked) {
-                            this.SubGroupChecked = {};
-                            this.SubGroupChoiceChecked = {};
-                            this.SubGroupChoiceDetailChecked = {};
-                        }
+                } else if (this.SubGroupChoiceChecked[filter]) {
+                    this.SubGroupChoiceChecked[filter] = false;
+                    this.subGroupChoiceExists = false;
 
-                        if (filterObject === this.SubGroupChecked) {
-                            this.SubGroupChoiceChecked = {};
-                            this.SubGroupChoiceDetailChecked = {};
-                        }
-
-                        if (filterObject === this.SubGroupChoiceChecked) {
-                            this.SubGroupChoiceDetailChecked = {};
-                        }
-                    }
+                } else if (this.SubGroupChoiceDetailChecked[filter]) {
+                    this.SubGroupChoiceDetailChecked[filter] = false;
+                    this.subGroupChoiceDetailExists = false;
                 }
 
                 const index = this.selectedFilters.indexOf(filter); // bien que le "check" soit removed avec uncheckFilterPastille, il faut supprimer la valeur du array selectedFilters avec splice
@@ -452,13 +449,13 @@
                 this.handleEmits();
             },
 
-            // clearSubGroupChoiceSelections() {
-            //     for (const key in this.SubGroupChoiceChecked) {
-            //         this.SubGroupChoiceChecked[key] = false;
-            //     }
-            //     this.subGroupChoiceExists = false;
-            //     this.handleEmits();
-            // },
+            clearSubGroupChoiceSelections() {
+                for (const key in this.SubGroupChoiceChecked) {
+                    this.SubGroupChoiceChecked[key] = false;
+                }
+                this.subGroupChoiceExists = false;
+                this.handleEmits();
+            },
 
 // ================== handling of CSS Functions ==================
 
@@ -473,8 +470,9 @@
 
             handleEmits() {
                 this.$emit('selected-filters', {selectedFilters: this.selectedFilters});
-                this.$emit('selected-delivery-method', {selectedDeliveryMethod: this.selectedDeliveryMethod});
-                this.$emit('selected-languages', {selectedLanguages: this.selectedLanguages});
+                // this.$emit('selected-delivery-method', {selectedDeliveryMethod: this.selectedDeliveryMethod});
+                // this.$emit('selected-languages', {selectedLanguages: this.selectedLanguages});
+                // this.$emit('selected-certifications', {selectedCertifications: this.selectedCertification});
                 this.$emit('sub-group-exists', {subGroupExists: this.subGroupExists});
                 this.$emit('sub-group-choice-exists', {subGroupChoiceExists: this.subGroupChoiceExists});
                 this.$emit('sub-group-choice-details-exists', {subGroupChoiceDetailExists: this.subGroupChoiceDetailExists});
@@ -499,15 +497,20 @@
                 .then(data => this.courseTypes = data)
                 .catch(err => console.log(err.message))
 
-            fetch('http://localhost:3000/deliveryMethods')
-                .then((res) => res.json())
-                .then(data => this.deliveryMethods = data)
-                .catch(err=> console.log(err.message))
+        //     fetch('http://localhost:3000/deliveryMethods')
+        //         .then((res) => res.json())
+        //         .then(data => this.deliveryMethods = data)
+        //         .catch(err=> console.log(err.message))
 
-            fetch('http://localhost:3000/languages')
-                .then((res) => res.json())
-                .then(data => this.languages = data)
-                .catch(err=> console.log(err.message))
+        //     fetch('http://localhost:3000/languages')
+        //         .then((res) => res.json())
+        //         .then(data => this.languages = data)
+        //         .catch(err => console.log(err.message))
+
+        //     fetch('http://localhost:3000/certifications')
+        //         .then((res) => res.json())
+        //         .then(data => this.certifications = data)
+        //         .catch(err => console.log(err.message))
         }
     }
 </script>
