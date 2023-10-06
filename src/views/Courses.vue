@@ -1,7 +1,7 @@
 <template>
 
     <Calendar v-on:selected-dates="handleSelectedDates"/> <!-- On ecoute le $emit de calendar -->
-    <SelectFilters 
+    <SelectFilters v-bind:selectedCourseType="selectedCourseType"
                    v-on:selected-delivery-method="handleDeliveryMethodFromSelectFilters"
                    v-on:selected-languages="handleLanguagesFromSelectedFilters"
                    v-on:selected-certifications="handleCertificationsFromSelectedFilters"
@@ -14,41 +14,51 @@
                    v-on:selected-languages="handleLanguages"
                    v-on:selected-certifications="handleCertifications"/> -->
 
-    <h1>Courses</h1>
+    <h1 v-on:click="patateCoursesTest()">Courses</h1>
     
     <div class="no-dates-container" 
         v-if="selectedEndDate !== '' && selectedFilters.length == 0"
         v-for="course in filteredCourses"
         v-bind:key="course.id">
             <strong>juste les dates</strong>
-            <p>{{ course.title }}</p>
-            <p>{{ course.language }}</p>
-            <p>{{ course.certification }}</p>
+            <p> Title : {{ course.title }}</p>
+            <p> Date : {{ course.date }}</p>
+            <p> Language : {{ course.language }}</p>
+            <p> Certification : {{ course.certification }}</p>
+            <p> Delivery Method : {{ course.deliveryMethod }}</p>
     </div>
     <div v-else>
         <div v-if="!subGroupExists" v-for="course in CourseTypeMatching" v-bind:key="course.id">
             <strong>1er groupe</strong>
-            <p>{{ course.title }}</p>
-            <p>{{ course.language }}</p>
-            <p>{{ course.certification }}</p>
+            <p> Title : {{ course.title }}</p>
+            <p> Date : {{ course.date }}</p>
+            <p> Language : {{ course.language }}</p>
+            <p> Certification : {{ course.certification }}</p>
+            <p> Delivery Method : {{ course.deliveryMethod }}</p>
         </div>
         <div v-if="!subGroupChoiceExists" v-for="course in subGroupMatching" v-bind:key="course.id">
             <strong>2eme groupe</strong>
-            <p>{{ course.title }}</p>
-            <p>{{ course.language }}</p>
-            <p>{{ course.certification }}</p>
+            <p> Title : {{ course.title }}</p>
+            <p> Date : {{ course.date }}</p>
+            <p> Language : {{ course.language }}</p>
+            <p> Certification : {{ course.certification }}</p>
+            <p> Delivery Method : {{ course.deliveryMethod }}</p>
         </div>
         <div v-if="!subGroupChoiceDetailExists" v-for="course in subGroupChoiceMatching" v-bind:key="course.id">
             <strong>3eme groupe</strong>
-            <p>{{ course.title }}</p>
-            <p>{{ course.language }}</p>
-            <p>{{ course.certification }}</p>
+            <p> Title : {{ course.title }}</p>
+            <p> Date : {{ course.date }}</p>
+            <p> Language : {{ course.language }}</p>
+            <p> Certification : {{ course.certification }}</p>
+            <p> Delivery Method : {{ course.deliveryMethod }}</p>
         </div>
         <div v-for="course in subGroupChoiceDetailMatching" v-bind:key="course.id">
             <strong>4eme groupe</strong>
-            <p>{{ course.title }}</p>
-            <p>{{ course.language }}</p>
-            <p>{{ course.certification }}</p>
+            <p> Title : {{ course.title }}</p>
+            <p> Date : {{ course.date }}</p>
+            <p> Language : {{ course.language }}</p>
+            <p> Certification : {{ course.certification }}</p>
+            <p> Delivery Method : {{ course.deliveryMethod }}</p>
         </div>
     </div>
 
@@ -62,6 +72,10 @@ import SelectFilters from '@/components/SelectFilters.vue';
     export default {
         name: 'Courses',
         components: { Calendar, SelectFilters },
+
+        props: {
+            selectedCourseType: String
+        },
 
         data() {
             return {
@@ -121,6 +135,11 @@ import SelectFilters from '@/components/SelectFilters.vue';
                 console.log(value.selectedCertifications);
                 this.selectedCertifications = value.selectedCertifications
             },
+            patateCoursesTest() {
+                console.log('patateCoursesTest : ', this.selectedCourseType)
+                if (this.selectedCourseType == 'First Aid') {
+                }
+            }
         },
 
         computed: {
@@ -170,7 +189,8 @@ import SelectFilters from '@/components/SelectFilters.vue';
                         if (courseDate >= new Date(this.selectedStartDate) &&
                             courseDate <= new Date(this.selectedEndDate) && 
                             (this.selectedDeliveryMethod === '' || this.selectedDeliveryMethod === course.deliveryMethod) &&
-                            (this.selectedLanguages.length === 0 || this.selectedLanguages.includes(course.language))) {
+                            (this.selectedLanguages.length === 0 || this.selectedLanguages.includes(course.language)) &&
+                            (this.selectedCertifications === '' || this.selectedCertifications.includes(course.certification))) {
                             for (const key in course) {
                                 if (key == 'subGroup') {
                                     if (this.selectedFilters.includes(course[key])) {
@@ -193,7 +213,8 @@ import SelectFilters from '@/components/SelectFilters.vue';
                         if (courseDate >= new Date(this.selectedStartDate) && 
                             courseDate <= new Date(this.selectedEndDate) &&
                             (this.selectedDeliveryMethod === '' || this.selectedDeliveryMethod === course.deliveryMethod) &&
-                            (this.selectedLanguages.length === 0 || this.selectedLanguages.includes(course.language))) {
+                            (this.selectedLanguages.length === 0 || this.selectedLanguages.includes(course.language)) &&
+                            (this.selectedCertifications === '' || this.selectedCertifications.includes(course.certification))) {
                             for (const key in course) {
                                 if (key == 'subGroupChoice') {
                                     if (this.selectedFilters.includes(course[key])) {
@@ -214,7 +235,7 @@ import SelectFilters from '@/components/SelectFilters.vue';
                 if (this.selectedFilters.length > 0) {
                     return this.courses.filter(course => {
                         const courseDate = new Date(course.date);
-                        if (courseDate >= new Date(this.selectedStartDate) && courseDate <= new Date(this.selectedEndDate) && (this.selectedDeliveryMethod === '' || this.selectedDeliveryMethod === course.deliveryMethod) && (this.selectedLanguages.length === 0 || this.selectedLanguages.includes(course.language))) {
+                        if (courseDate >= new Date(this.selectedStartDate) && courseDate <= new Date(this.selectedEndDate) && (this.selectedDeliveryMethod === '' || this.selectedDeliveryMethod === course.deliveryMethod) && (this.selectedLanguages.length === 0 || this.selectedLanguages.includes(course.language)) && (this.selectedCertifications === '' || this.selectedCertifications.includes(course.certification))) {
                             for (const key in course) {
                                 if (key == 'subGroupChoiceDetail') {
                                     if (this.selectedFilters.includes(course[key])) {

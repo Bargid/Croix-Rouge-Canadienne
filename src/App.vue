@@ -20,14 +20,17 @@
       <div class="important-message-container">
         <p class="important-message"><span>important: </span> Maintenance will take place on Saturday, April 17th, from 9:00 p.m. to 10:00 p.m. ET. Access to online course content will be unavailable and other functions may also be interrupted</p>
       </div>
+
+      <CourseTypeSelector v-on:selected-course-type="handleSelectedCourseTypes"/>
+
       <img src="./assets/Images/classroom-banner.webp" alt="Hero Banner">
     </section>
-      <p>Body</p>
+    <p>Body</p>
 
     <section class="courses-template"> 
       <div class="left-filters">
 
-          <Courses />
+        <Courses v-bind:selectedCourseType="selectedCourseType"/>
 
       </div>
     </section>
@@ -65,15 +68,23 @@
 <script>
   import Footer from '@/components/Footer.vue'
   import Courses from '@/views/Courses.vue'
+  import CourseTypeSelector from '@/components/CourseTypeSelector.vue'
 
   export default {
-    components: {
-      Footer,
-      Courses,
+    components: { Footer, Courses, CourseTypeSelector },
+
+    data() {
+      return {
+        selectedCourseType: ''
+      }
     },
 
     methods: {
 
+      handleSelectedCourseTypes(value) {
+          this.selectedCourseType = value.selectedCourseType;
+          console.log(this.selectedCourseType);
+      }
     }
   }
 </script>

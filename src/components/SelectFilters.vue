@@ -4,7 +4,7 @@
 
         <!-- Menu de filtres a gauche -->
         <nav class="coursesType-menu">
-            <div class="filter-container container-border" v-on:click="toggleDropdown(), handleBorders()"> 
+            <div class="filter-container container-border" v-on:click="toggleDropdown(), handleBorders(), handleCourseTypeSelected()"> 
                 Filter Course Types <img src="../assets/Icons/arrow.svg" alt=""> 
             </div>
             <div class="menu-categories" 
@@ -115,6 +115,10 @@
         name: 'SelectFilters',
         components: { HorizontalFilters },
 
+        props: {
+            selectedCourseType: String
+        },
+
         data() {
             return {
                 courses: [],
@@ -139,6 +143,34 @@
                 subGroupChoiceExists: false,
                 subGroupChoiceDetailExists: false,
             }
+        },
+
+        watch: {
+            // selectedCourseType(selectedCourseType) {
+            //     console.log('Watching')
+            //     if (selectedCourseType === 'First Aid') {
+            //         console.log('first if')
+            //         this.showDropdown = true;
+            //         this.toggleSubDropdown(selectedCourseType)
+            //         this.toggleCategoryCheckbox('First Aid');
+            //     } else {
+            //         this.resetFilters();
+            //     }
+            // }
+
+            selectedCourseType(selectedCourseType) { // trigger avec le select du Hero de page
+                const foundCourseType = this.courseTypes.find(courseType => courseType.name === selectedCourseType)
+                console.log('foundCourseType : ', foundCourseType)
+                if (foundCourseType) {
+                    this.toggleCategoryCheckbox(foundCourseType.name);
+                    this.showDropdown = true;
+                    this.handleBorders()
+                    this.toggleSubDropdown(foundCourseType.name);
+                } else {
+                    this.showDropdown = false;
+                    this.resetFilters();
+                }
+            },
         },
 
         computed: { // Beaucoup plus simple que de faire une fonction updateSelectedFilters...
@@ -179,6 +211,12 @@
 
         methods: {
 
+// =================== Value from CourseTypeSelector ===================
+
+            handleCourseTypeSelected() {
+                console.log('handleCourseTypeSelected : ', this.selectedCourseType)
+            },
+
 // ================== Emit from children Handling ==================
 
             handleDeliveryMethod(value) {
@@ -201,7 +239,6 @@
 // ================== Toggle de Menus secondaires functions ==================
 
             getSubGroupMenu(subGroupName) {
-                // console.log(this.SubGroupChecked)
                 let resultat = '';
                 const courseType = this.courseTypes.find(type => type.name === 'First Aid');
                 if (courseType) {
@@ -264,12 +301,12 @@
 
 // ================== Toggle de Checkbox functions ==================
 
+            
+
             toggleCategoryCheckbox(categoryName) {
                 for (const key in this.CategoryChecked) {
                     if (key !== categoryName) {
                         this.CategoryChecked[key] = false;
-
-
                         const index = this.selectedFilters.indexOf(key);
                         if (index !== -1) {
                             this.selectedFilters.splice(index, 1);
@@ -462,8 +499,8 @@
             handleBorders() {
                 const filterContainer = document.querySelector('.filter-container');
                 const wholeContainer = document.querySelector('.coursesType-menu');
-                filterContainer.classList.toggle("container-border");
-                wholeContainer.classList.toggle("container-border");
+                filterContainer.classList.remove("container-border");
+                wholeContainer.classList.add("container-border");
             },
 
 // ================== Emit Functions ==================
