@@ -50,12 +50,9 @@
                 <div class="course-group-container" v-else>
                     <div v-for="group in groupedCourses" :key="group.id">
                         <div class="course-container" v-for="course in group.courses" :key="course.id">
-                            <DateAndPrice v-bind:courseData="course"/>
-                            <!-- <p> Title : {{ course.title }}</p>
-                            <p> Date : {{ course.date }}</p>
-                            <p> Language : {{ course.language }}</p>
-                            <p> Certification : {{ course.certification }}</p>
-                            <p> Delivery Method : {{ course.deliveryMethod }}</p> -->
+                            <DateAndPrice v-bind:courseData = "course"/>
+                            <!-- {{ course.id }} -->
+                            <TopBanner v-bind:courseData = "course"/>
                         </div>
                     </div>
                 </div>
@@ -72,11 +69,11 @@ import HorizontalFilters from '@/components/HorizontalFilters.vue';
 
 // Course Card
 import DateAndPrice from '@/components/CardComponents/DateAndPrice.vue';
-// import Reset from '@/components/Reset.vue';
+import TopBanner from '@/components/CardComponents/TopBanner.vue'
 
     export default {
         name: 'Courses',
-        components: { Calendar, SelectFilters, HorizontalFilters, DateAndPrice},
+        components: { Calendar, SelectFilters, HorizontalFilters, DateAndPrice, TopBanner},
 
         props: {
             selectedCourseType: String
@@ -250,9 +247,9 @@ import DateAndPrice from '@/components/CardComponents/DateAndPrice.vue';
 
                         return courseDate >= new Date(this.selectedStartDate) && 
                                courseDate <= new Date(this.selectedEndDate) && 
-                               (this.selectedDeliveryMethod === '' || this.selectedDeliveryMethod === course.deliveryMethod) && // le === '' permet d'avoir tous les resultats lorsque rien n'est selectioner
-                               (this.selectedLanguages.length === 0 || this.selectedLanguages.includes(course.language)) &&
-                               (this.selectedCertifications === '' || this.selectedCertifications.includes(course.certification))
+                               (this.selectedDeliveryMethod === '' || course.deliveryMethod.includes(this.selectedDeliveryMethod)) && // le === '' permet d'avoir tous les resultats lorsque rien n'est selectioner
+                               (this.selectedLanguages.length === 0 || course.language.includes(this.selectedLanguages)) &&
+                               (this.selectedCertifications === '' || course.certification.includes(this.selectedCertifications))
                     });
                 }
                 return [];
@@ -264,9 +261,9 @@ import DateAndPrice from '@/components/CardComponents/DateAndPrice.vue';
                         const courseDate = new Date(course.date);
                         if (courseDate >= new Date(this.selectedStartDate) && 
                             courseDate <= new Date(this.selectedEndDate) && 
-                            (this.selectedDeliveryMethod === '' || this.selectedDeliveryMethod === course.deliveryMethod) && 
-                            (this.selectedLanguages.length === 0 || this.selectedLanguages.includes(course.language)) &&
-                            (this.selectedCertifications === '' || this.selectedCertifications.includes(course.certification))) { // On verifie si les cours associer a la selection entre dans l'intervalle de la date de depart et celle de fin
+                            (this.selectedDeliveryMethod === '' || course.deliveryMethod.includes(this.selectedDeliveryMethod)) && 
+                            (this.selectedLanguages.length === 0 || course.language.includes(this.selectedLanguages)) &&
+                            (this.selectedCertifications === '' || course.certification.includes(this.selectedCertifications))) { // On verifie si les cours associer a la selection entre dans l'intervalle de la date de depart et celle de fin
                             for (const key in course) {
                                 if (key != 'id' && key != 'date') {
                                     if (this.selectedFilters.includes(course[key])) {
@@ -288,9 +285,9 @@ import DateAndPrice from '@/components/CardComponents/DateAndPrice.vue';
                         const courseDate = new Date(course.date);
                         if (courseDate >= new Date(this.selectedStartDate) &&
                             courseDate <= new Date(this.selectedEndDate) && 
-                            (this.selectedDeliveryMethod === '' || this.selectedDeliveryMethod === course.deliveryMethod) &&
-                            (this.selectedLanguages.length === 0 || this.selectedLanguages.includes(course.language)) &&
-                            (this.selectedCertifications === '' || this.selectedCertifications.includes(course.certification))) {
+                            (this.selectedDeliveryMethod === '' || course.deliveryMethod.includes(this.selectedDeliveryMethod)) &&
+                            (this.selectedLanguages.length === 0 || course.language.includes(this.selectedLanguages)) &&
+                            (this.selectedCertifications === '' || course.certification.includes(this.selectedCertifications))) {
                             for (const key in course) {
                                 if (key == 'subGroup') {
                                     if (this.selectedFilters.includes(course[key])) {
@@ -312,9 +309,9 @@ import DateAndPrice from '@/components/CardComponents/DateAndPrice.vue';
                         const courseDate = new Date(course.date);
                         if (courseDate >= new Date(this.selectedStartDate) && 
                             courseDate <= new Date(this.selectedEndDate) &&
-                            (this.selectedDeliveryMethod === '' || this.selectedDeliveryMethod === course.deliveryMethod) &&
-                            (this.selectedLanguages.length === 0 || this.selectedLanguages.includes(course.language)) &&
-                            (this.selectedCertifications === '' || this.selectedCertifications.includes(course.certification))) {
+                            (this.selectedDeliveryMethod === '' || course.deliveryMethod.includes(this.selectedDeliveryMethod)) &&
+                            (this.selectedLanguages.length === 0 || course.language.includes(this.selectedLanguages)) &&
+                            (this.selectedCertifications === '' || course.certification.includes(this.selectedCertifications))) {
                             for (const key in course) {
                                 if (key == 'subGroupChoice') {
                                     if (this.selectedFilters.includes(course[key])) {
@@ -335,12 +332,15 @@ import DateAndPrice from '@/components/CardComponents/DateAndPrice.vue';
                 if (this.selectedFilters.length > 0) {
                     return this.courses.filter(course => {
                         const courseDate = new Date(course.date);
-                        if (courseDate >= new Date(this.selectedStartDate) && courseDate <= new Date(this.selectedEndDate) && (this.selectedDeliveryMethod === '' || this.selectedDeliveryMethod === course.deliveryMethod) && (this.selectedLanguages.length === 0 || this.selectedLanguages.includes(course.language)) && (this.selectedCertifications === '' || this.selectedCertifications.includes(course.certification))) {
+                        if (courseDate >= new Date(this.selectedStartDate) && 
+                            courseDate <= new Date(this.selectedEndDate) && 
+                            (this.selectedDeliveryMethod === '' || course.deliveryMethod.includes(this.selectedDeliveryMethod)) && 
+                            (this.selectedLanguages.length === 0 || course.language.includes(this.selectedLanguages)) && 
+                            (this.selectedCertifications === '' || course.certification.includes(this.selectedCertifications))) {
                             for (const key in course) {
                                 if (key == 'subGroupChoiceDetail') {
                                     if (this.selectedFilters.includes(course[key])) {
                                         subGroupChoiceDetail.push(course)
-                                        console.log ( 'ligne 155 : ', this.subGroupChoiceDetailExists)
                                         return true;
                                     }
                                 }

@@ -1,7 +1,7 @@
 <template>
 
     <div class="date-and-price-container">
-        <div class="date-container">
+        <div class="date-container" ref="dateContainer">
             <span class="date-month"> {{ formatDate(courseData.date).month }}</span>
             <span class="date-day">{{ formatDate(courseData.date).day }}</span>
             <span class="date-weekday">{{ formatDate(courseData.date).weekday }}</span>
@@ -42,10 +42,15 @@
 
             marginAdd() {
                 if (this.courseData.price > 0) {
-                    const dateContainer = document.querySelector('.date-container');
+                    console.log('Allo')
+                    const dateContainer = this.$refs.dateContainer;
                     dateContainer.classList.add('date-container-top-margin');
                 }
             }
+        },
+
+        mounted() {
+            this.marginAdd(); // on permet a marginAdd d'etre utilise
         }
     }
 </script>

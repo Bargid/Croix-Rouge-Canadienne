@@ -13,6 +13,7 @@ import './assets/CSS/selectfilters.css'
 import './assets/CSS/courses.css'
 import './assets/CSS/horizontalFilters.css'
 import './assets/CSS/dateAndPrice.css'
+import './assets/CSS/topbanner.css'
 
 // Font Awesome
 
