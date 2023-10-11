@@ -91,12 +91,12 @@
         </nav>
     </section>
 
-    <HorizontalFilters 
+    <!-- <HorizontalFilters 
                    v-on:selected-delivery-method="handleDeliveryMethod"
                    v-on:selected-languages="handleLanguages"
-                   v-on:selected-certifications="handleCertifications"/>
+                   v-on:selected-certifications="handleCertifications"/> -->
 
-    <div class="horizontal-tags-container">
+    <!-- <div class="horizontal-tags-container">
         <span class="reset-tag"
             v-on:click="resetFilters()"> Reset </span>
         <span class="pastille-tag"
@@ -104,16 +104,17 @@
             v-bind:key="index"
             v-on:click="uncheckFilterPastille(filter)">
             {{ filter }}</span>
-    </div>
+    </div> -->
 
 </template>
 
 <script>
-    import HorizontalFilters from '@/components/HorizontalFilters.vue';
+    // import HorizontalFilters from '@/components/HorizontalFilters.vue';
+    import { uncheckFilterPastille } from '@/uncheckFilterPastille';
 
     export default {
         name: 'SelectFilters',
-        components: { HorizontalFilters },
+        // components: { HorizontalFilters },
 
         props: {
             selectedCourseType: String
@@ -219,22 +220,22 @@
 
 // ================== Emit from children Handling ==================
 
-            handleDeliveryMethod(value) {
-                this.selectedDeliveryMethod = value.selectedDeliveryMethod;
-                this.$emit('selected-delivery-method', value);
+            // handleDeliveryMethod(value) {
+            //     this.selectedDeliveryMethod = value.selectedDeliveryMethod;
+            //     this.$emit('selected-delivery-method', value);
 
-                // console.log(this.selectedDeliveryMethod)
-            },
-            handleLanguages(value) {
-                this.selectedLanguages = value.selectedLanguages;
-                this.$emit('selected-languages', value);
-                // console.log(this.selectedLanguages)
-            },
-            handleCertifications(value) {
-                this.selectedCertifications = value.selectedCertifications;
-                this.$emit('selected-certifications', value)
-                // console.log(this.selectedCertifications)
-            },
+            //     // console.log(this.selectedDeliveryMethod)
+            // },
+            // handleLanguages(value) {
+            //     this.selectedLanguages = value.selectedLanguages;
+            //     this.$emit('selected-languages', value);
+            //     // console.log(this.selectedLanguages)
+            // },
+            // handleCertifications(value) {
+            //     this.selectedCertifications = value.selectedCertifications;
+            //     this.$emit('selected-certifications', value)
+            //     // console.log(this.selectedCertifications)
+            // },
 
 // ================== Toggle de Menus secondaires functions ==================
 
@@ -300,8 +301,6 @@
             },
 
 // ================== Toggle de Checkbox functions ==================
-
-            
 
             toggleCategoryCheckbox(categoryName) {
                 for (const key in this.CategoryChecked) {
@@ -397,55 +396,56 @@
 
 // ================== Uncheck filters on close Functions ==================
 
-            uncheckFilterPastille(filter) {
+            // uncheckFilterPastille(filter) {
 
-                // const filterObjects = [this.CategoryChecked, this.SubGroupChecked, this.SubGroupChoiceChecked, this.SubGroupChoiceDetailChecked];
+            // //     // const filterObjects = [this.CategoryChecked, this.SubGroupChecked, this.SubGroupChoiceChecked, this.SubGroupChoiceDetailChecked];
 
-                // for (const filterObject of filterObjects) { // On passe au travers de chaque objet du array et turn false ou vide selon les conditions
-                //     if (filterObject[filter]) {
-                //         filterObject[filter] = false;
+            // //     // for (const filterObject of filterObjects) { // On passe au travers de chaque objet du array et turn false ou vide selon les conditions
+            // //     //     if (filterObject[filter]) {
+            // //     //         filterObject[filter] = false;
 
-                //         if (filterObject == this.CategoryChecked) {
-                //             this.SubGroupChecked = {};
-                //             this.SubGroupChoiceChecked = {};
-                //             this.SubGroupChoiceDetailChecked = {};
-                //         }
+            // //     //         if (filterObject == this.CategoryChecked) {
+            // //     //             this.SubGroupChecked = {};
+            // //     //             this.SubGroupChoiceChecked = {};
+            // //     //             this.SubGroupChoiceDetailChecked = {};
+            // //     //         }
 
-                //         if (filterObject === this.SubGroupChecked) {
-                //             this.SubGroupChoiceChecked = {};
-                //             this.SubGroupChoiceDetailChecked = {};
-                //         }
+            // //     //         if (filterObject === this.SubGroupChecked) {
+            // //     //             this.SubGroupChoiceChecked = {};
+            // //     //             this.SubGroupChoiceDetailChecked = {};
+            // //     //         }
 
-                //         if (filterObject === this.SubGroupChoiceChecked) {
-                //             this.SubGroupChoiceDetailChecked = {};
-                //         }
-                //     }
-                // }
+            // //     //         if (filterObject === this.SubGroupChoiceChecked) {
+            // //     //             this.SubGroupChoiceDetailChecked = {};
+            // //     //         }
+            // //     //     }
+            // //     // }
 
-                if (this.CategoryChecked[filter]) {
-                    this.CategoryChecked[filter] = false;
+            //     if (this.CategoryChecked[filter]) {
+            //         this.CategoryChecked[filter] = false;
 
-                } else if (this.SubGroupChecked[filter]) {
-                    this.SubGroupChecked[filter] = false;
-                    this.subGroupExists = false;
+            //     } else if (this.SubGroupChecked[filter]) {
+            //         this.SubGroupChecked[filter] = false;
+            //         this.subGroupExists = false;
 
-                } else if (this.SubGroupChoiceChecked[filter]) {
-                    this.SubGroupChoiceChecked[filter] = false;
-                    this.subGroupChoiceExists = false;
+            //     } else if (this.SubGroupChoiceChecked[filter]) {
+            //         this.SubGroupChoiceChecked[filter] = false;
+            //         this.subGroupChoiceExists = false;
 
-                } else if (this.SubGroupChoiceDetailChecked[filter]) {
-                    this.SubGroupChoiceDetailChecked[filter] = false;
-                    this.subGroupChoiceDetailExists = false;
-                }
+            //     } else if (this.SubGroupChoiceDetailChecked[filter]) {
+            //         this.SubGroupChoiceDetailChecked[filter] = false;
+            //         this.subGroupChoiceDetailExists = false;
+            //     }
 
-                const index = this.selectedFilters.indexOf(filter); // bien que le "check" soit removed avec uncheckFilterPastille, il faut supprimer la valeur du array selectedFilters avec splice
-                if (index !== -1) {
-                    this.selectedFilters.splice(index, 1);
-                }
+            //     const index = this.selectedFilters.indexOf(filter); // bien que le "check" soit removed avec uncheckFilterPastille, il faut supprimer la valeur du array selectedFilters avec splice
+            //     if (index !== -1) {
+            //         this.selectedFilters.splice(index, 1);
+            //     }
 
-                this.toggleSubDropdown(filter); // va actioner "toggleSubDropdown" si le filter clique a cette fonction associe
-                this.handleEmits();
-            },
+            //     this.toggleSubDropdown(filter); // va actioner "toggleSubDropdown" si le filter clique a cette fonction associe
+            //     this.$emit('uncheck-filter-pastille', filter);
+            //     this.handleEmits();
+            // },
 
             resetSubGroups() {
                 for (const key in this.SubGroupChecked) {
@@ -513,6 +513,10 @@
                 this.$emit('sub-group-exists', {subGroupExists: this.subGroupExists});
                 this.$emit('sub-group-choice-exists', {subGroupChoiceExists: this.subGroupChoiceExists});
                 this.$emit('sub-group-choice-details-exists', {subGroupChoiceDetailExists: this.subGroupChoiceDetailExists});
+                this.$emit('category-checked', {CategoryChecked: this.CategoryChecked});
+                this.$emit('subgroup-checked', {SubGroupChecked: this.SubGroupChecked});
+                this.$emit('subgroupchoice-checked', {SubGroupChoiceChecked: this.SubGroupChoiceChecked});
+                this.$emit('subgroupchoicedetail-checked', {SubGroupChoiceDetailChecked: this.SubGroupChoiceDetailChecked});
             }
         },
 

@@ -10,6 +10,9 @@ import './assets/CSS/global.css'
 import './assets/CSS/footer.css'
 import './assets/CSS/calendar.css'
 import './assets/CSS/selectfilters.css'
+import './assets/CSS/courses.css'
+import './assets/CSS/horizontalFilters.css'
+import './assets/CSS/dateAndPrice.css'
 
 // Font Awesome
 

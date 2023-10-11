@@ -1,77 +1,82 @@
 <template>
 
-    <Calendar v-on:selected-dates="handleSelectedDates"/> <!-- On ecoute le $emit de calendar -->
-    <SelectFilters v-bind:selectedCourseType="selectedCourseType"
-                   v-on:selected-delivery-method="handleDeliveryMethodFromSelectFilters"
-                   v-on:selected-languages="handleLanguagesFromSelectedFilters"
-                   v-on:selected-certifications="handleCertificationsFromSelectedFilters"
-                   v-on:selected-filters="handleSelectedFilters"
-                   v-on:sub-group-exists="handleSubGroupExists" 
-                   v-on:sub-group-choice-exists="handleSubGroupChoiceExists"
-                   v-on:sub-group-choice-details-exists="handleSubGroupChoiceDetailExists"/>
-    <!-- <HorizontalFilters 
-                   v-on:selected-delivery-method="handleDeliveryMethod"
-                   v-on:selected-languages="handleLanguages"
-                   v-on:selected-certifications="handleCertifications"/> -->
+    <section class="filters-courses-container">
+        <div class="calendar-filter-menu-container">
+            <Calendar v-on:selected-dates="handleSelectedDates"/> <!-- On ecoute le $emit de calendar -->
+            <SelectFilters v-bind:selectedCourseType="selectedCourseType"
+                           v-on:category-checked="handleCategoryChecked"
+                           v-on:subgroup-checked="handleSubGroupChecked"
+                           v-on:subgroupchoice-checked="handleSubGroupChoiceChecked"
+                           v-on:subgroupchoicedetail-checked="handleSubGroupChoiceDetailChecked"
+                           v-on:selected-filters="handleSelectedFilters"
+                           v-on:sub-group-exists="handleSubGroupExists"
+                           v-on:sub-group-choice-exists="handleSubGroupChoiceExists"
+                           v-on:sub-group-choice-details-exists="handleSubGroupChoiceDetailExists"
+                           v-on:reset-filters="handleResetFilters"
+                           ref="selectFilters"/>
+        </div>
+        <div class="horizontals-container">
+            <HorizontalFilters
+                           v-on:selected-delivery-method="handleDeliveryMethod"
+                           v-on:selected-languages="handleLanguages"
+                           v-on:selected-certifications="handleCertifications"/>
 
-    <h1 v-on:click="patateCoursesTest()">Courses</h1>
+            <div class="horizontal-tags-container">
+                <span class="pastille-tag"
+                v-for="(filter, index) in selectedFilters"
+                v-bind:key="index"
+                v-on:click="uncheckFilterPastille(filter)">
+                {{ filter }} <img src="@/assets/Icons/x.svg" alt="x"></span>
+                <span class="reset-tag"
+                    v-on:click="handleResetFilters()"> Reset </span>
+            </div>
+
+            
+            <div class="courses-container">
+                
+                <h1>Courses</h1>
+
+                <div v-if="selectedEndDate !== '' && selectedFilters.length == 0">
+                    <div v-for="course in filteredCourses" :key="course.id">
+                        <strong>juste les dates</strong>
+                        <p> Title : {{ course.title }}</p>
+                        <p> Date : {{ course.date }}</p>
+                        <p> Language : {{ course.language }}</p>
+                        <p> Certification : {{ course.certification }}</p>
+                        <p> Delivery Method : {{ course.deliveryMethod }}</p>
+                    </div>
+                </div>
+                    
+                <div class="course-group-container" v-else>
+                    <div v-for="group in groupedCourses" :key="group.id">
+                        <div class="course-container" v-for="course in group.courses" :key="course.id">
+                            <DateAndPrice v-bind:courseData="course"/>
+                            <!-- <p> Title : {{ course.title }}</p>
+                            <p> Date : {{ course.date }}</p>
+                            <p> Language : {{ course.language }}</p>
+                            <p> Certification : {{ course.certification }}</p>
+                            <p> Delivery Method : {{ course.deliveryMethod }}</p> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     
-    <div class="no-dates-container" 
-        v-if="selectedEndDate !== '' && selectedFilters.length == 0"
-        v-for="course in filteredCourses"
-        v-bind:key="course.id">
-            <strong>juste les dates</strong>
-            <p> Title : {{ course.title }}</p>
-            <p> Date : {{ course.date }}</p>
-            <p> Language : {{ course.language }}</p>
-            <p> Certification : {{ course.certification }}</p>
-            <p> Delivery Method : {{ course.deliveryMethod }}</p>
-    </div>
-    <div v-else>
-        <div v-if="!subGroupExists" v-for="course in CourseTypeMatching" v-bind:key="course.id">
-            <strong>1er groupe</strong>
-            <p> Title : {{ course.title }}</p>
-            <p> Date : {{ course.date }}</p>
-            <p> Language : {{ course.language }}</p>
-            <p> Certification : {{ course.certification }}</p>
-            <p> Delivery Method : {{ course.deliveryMethod }}</p>
-        </div>
-        <div v-if="!subGroupChoiceExists" v-for="course in subGroupMatching" v-bind:key="course.id">
-            <strong>2eme groupe</strong>
-            <p> Title : {{ course.title }}</p>
-            <p> Date : {{ course.date }}</p>
-            <p> Language : {{ course.language }}</p>
-            <p> Certification : {{ course.certification }}</p>
-            <p> Delivery Method : {{ course.deliveryMethod }}</p>
-        </div>
-        <div v-if="!subGroupChoiceDetailExists" v-for="course in subGroupChoiceMatching" v-bind:key="course.id">
-            <strong>3eme groupe</strong>
-            <p> Title : {{ course.title }}</p>
-            <p> Date : {{ course.date }}</p>
-            <p> Language : {{ course.language }}</p>
-            <p> Certification : {{ course.certification }}</p>
-            <p> Delivery Method : {{ course.deliveryMethod }}</p>
-        </div>
-        <div v-for="course in subGroupChoiceDetailMatching" v-bind:key="course.id">
-            <strong>4eme groupe</strong>
-            <p> Title : {{ course.title }}</p>
-            <p> Date : {{ course.date }}</p>
-            <p> Language : {{ course.language }}</p>
-            <p> Certification : {{ course.certification }}</p>
-            <p> Delivery Method : {{ course.deliveryMethod }}</p>
-        </div>
-    </div>
-
 </template>
 
 <script>
 import Calendar from '@/components/Calendar.vue';
 import SelectFilters from '@/components/SelectFilters.vue';
-// import HorizontalFilters from '@/components/HorizontalFilters.vue';
+import HorizontalFilters from '@/components/HorizontalFilters.vue';
+
+// Course Card
+import DateAndPrice from '@/components/CardComponents/DateAndPrice.vue';
+// import Reset from '@/components/Reset.vue';
 
     export default {
         name: 'Courses',
-        components: { Calendar, SelectFilters },
+        components: { Calendar, SelectFilters, HorizontalFilters, DateAndPrice},
 
         props: {
             selectedCourseType: String
@@ -99,6 +104,7 @@ import SelectFilters from '@/components/SelectFilters.vue';
         },
 
         methods: {
+
             handleSelectedDates(dates) {
                 this.selectedStartDate = dates.startDate;
                 this.selectedEndDate = dates.endDate;
@@ -107,6 +113,7 @@ import SelectFilters from '@/components/SelectFilters.vue';
             handleSelectedFilters(filters) {
                 this.selectedFilters = filters.selectedFilters;
                 // console.log('Received :', filters)
+                // console.log(this.selectedFilters)
             },
             handleSubGroupExists(value) {
                 this.subGroupExists = value.subGroupExists;
@@ -120,29 +127,122 @@ import SelectFilters from '@/components/SelectFilters.vue';
                 this.subGroupChoiceDetailExists = value.subGroupChoiceDetailExists;
                 // console.log('handleSubGroupChoiceDetailExists :', value)
             },
+            handleCategoryChecked(value) {
+            this.CategoryChecked = value.CategoryChecked;
+            },
+            handleSubGroupChecked(value) {
+            this.SubGroupChecked = value.SubGroupChecked;
+            },
+            handleSubGroupChoiceChecked(value) {
+            this.SubGroupChoiceChecked = value.SubGroupChoiceChecked;
+            },
+            handleSubGroupChoiceDetailChecked(value) {
+            this.SubGroupChoiceDetailChecked = value.SubGroupChoiceDetailChecked;
+            },
 
             // ========== From SelectedFilters.Vue ==========
 
-            handleDeliveryMethodFromSelectFilters(value) {
-                console.log(value.selectedDeliveryMethod);
-                this.selectedDeliveryMethod = value.selectedDeliveryMethod
+            // handleDeliveryMethodFromSelectFilters(value) {
+            //     console.log(value.selectedDeliveryMethod);
+            //     this.selectedDeliveryMethod = value.selectedDeliveryMethod
+            // },
+            // handleLanguagesFromSelectedFilters(value) {
+            //     console.log(value.selectedLanguages);
+            //     this.selectedLanguages = value.selectedLanguages
+            // },
+            // handleCertificationsFromSelectedFilters(value) {
+            //     console.log(value.selectedCertifications);
+            //     this.selectedCertifications = value.selectedCertifications
+            // },
+            // patateCoursesTest() {
+            //     console.log('patateCoursesTest : ', this.selectedCourseType)
+            //     if (this.selectedCourseType == 'First Aid') {
+            //     }
+            // },
+
+            // ================== Emit from children HorizontalFilters ==================
+
+            handleDeliveryMethod(value) {
+                this.selectedDeliveryMethod = value.selectedDeliveryMethod;
+                this.$emit('selected-delivery-method', value);
+
+                // console.log(this.selectedDeliveryMethod)
             },
-            handleLanguagesFromSelectedFilters(value) {
-                console.log(value.selectedLanguages);
-                this.selectedLanguages = value.selectedLanguages
+            handleLanguages(value) {
+                this.selectedLanguages = value.selectedLanguages;
+                this.$emit('selected-languages', value);
+                // console.log(this.selectedLanguages)
             },
-            handleCertificationsFromSelectedFilters(value) {
-                console.log(value.selectedCertifications);
-                this.selectedCertifications = value.selectedCertifications
+            handleCertifications(value) {
+                this.selectedCertifications = value.selectedCertifications;
+                this.$emit('selected-certifications', value)
+                // console.log(this.selectedCertifications)
             },
-            patateCoursesTest() {
-                console.log('patateCoursesTest : ', this.selectedCourseType)
-                if (this.selectedCourseType == 'First Aid') {
-                }
+
+            // ================== Emit from children Reset ==================
+
+            handleResetFilters() {
+                this.$refs.selectFilters.resetFilters();
+            },
+
+            toggleSubDropdown(courseTypeName) {
+                this.$refs.selectFilters.toggleSubDropdown(courseTypeName)
+            },
+
+            uncheckFilterPastille(filter,) {
+                console.log('Filter :', filter)
+                console.log('CategoryCheckedFilter :', this.CategoryChecked[filter])
+
+            if (this.CategoryChecked[filter]) {
+                console.log('Category Filter : ', filter)
+                this.CategoryChecked[filter] = false;
+
+            } else if (this.SubGroupChecked[filter]) {
+                console.log('SubGroup Filter : ', filter)
+                this.SubGroupChecked[filter] = false;
+                this.subGroupExists = false;
+
+            } else if (this.SubGroupChoiceChecked[filter]) {
+                this.SubGroupChoiceChecked[filter] = false;
+                this.subGroupChoiceExists = false;
+
+            } else if (this.SubGroupChoiceDetailChecked[filter]) {
+                this.SubGroupChoiceDetailChecked[filter] = false;
+                this.subGroupChoiceDetailExists = false;
+            }
+
+            const index = this.selectedFilters.indexOf(filter); // bien que le "check" soit removed avec uncheckFilterPastille, il faut supprimer la valeur du array selectedFilters avec splice
+            if (index !== -1) {
+                this.selectedFilters.splice(index, 1);
+            }
+
+            this.toggleSubDropdown(filter); // va actioner "toggleSubDropdown" si le filter clique a cette fonction associe
+            // this.handleEmits();
             }
         },
 
         computed: {
+
+            groupedCourses() {
+                const groups = [];
+
+                if (!this.subGroupExists) {
+                    groups.push({ id: 1, label: "1er groupe", courses: this.CourseTypeMatching });
+                }
+
+                if (!this.subGroupChoiceExists) {
+                    groups.push({ id: 2, label: "2eme groupe", courses: this.subGroupMatching });
+                }
+
+                if (!this.subGroupChoiceDetailExists) {
+                    groups.push({ id: 3, label: "3eme groupe", courses: this.subGroupChoiceMatching });
+                }
+
+                groups.push({ id: 4, label: "4eme groupe", courses: this.subGroupChoiceDetailMatching });
+
+                return groups;
+            },
+
             filteredCourses() {
                 if (this.selectedStartDate && this.selectedEndDate) {
                     return this.courses.filter(course => {

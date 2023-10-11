@@ -5,7 +5,7 @@
             "title": "CPR / Automated External Defibrillator",
             "courseType": "First Aid",
             "subGroup": "Personal",
-            "date": "2023-10-06",
+            "date": "2023-10-22",
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
@@ -22,7 +22,7 @@
             "title": "Deuxieme cours",
             "courseType": "First Aid",
             "subGroup": "Work / School",
-            "date": "2023-10-09",
+            "date": "2023-10-24",
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
@@ -31,7 +31,7 @@
             "trainingPartner": "CRCS Online Course",
             "subGroupChoice": "Yes",
             "language": "French",
-            "price": 100,
+            "price": 0,
             "popular": true
         },
         { 
@@ -57,7 +57,7 @@
             "title": "quatrieme cours",
             "courseType": "First Aid",
             "subGroup": "Personal",
-            "date": "2023-10-13",
+            "date": "2023-10-19",
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",
@@ -67,7 +67,7 @@
             "subGroupChoice":  "Adult",
             "subGroupChoiceDetail": "Marine First Aid",
             "language": "French",
-            "price": 100,
+            "price": 0,
             "popular": true
         },
         { 
@@ -75,7 +75,7 @@
             "title": "cinquieme cours",
             "courseType": "First Aid",
             "subGroup": "Personal",
-            "date": "2023-10-11",
+            "date": "2023-10-18",
             "startTime": "6:00 PM",
             "endTime": "10:00 PM",
             "duration": "3:00",

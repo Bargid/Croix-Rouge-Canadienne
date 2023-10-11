@@ -10,8 +10,17 @@
     --copy: #313131;
     --footer-outline: #464646;
     --button-copy: #757575;
+    --date-copy: #222222;
+    --table-bg: #ECECEC;
     --form-border: #cdcdcd;
     --table-bg: #f0f0f0;
     --tooltip: #e4f0f5;
     --notification: #efe7e1;
+
+    /* Margin Variables */
+
+    --very-small-margin: 10px;
+    --small-margin: 15px;
+    --mid-margin: 20px;
+    --large-margin: 40px;
 }

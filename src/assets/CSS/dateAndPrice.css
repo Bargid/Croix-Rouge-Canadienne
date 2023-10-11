@@ -1,0 +1,63 @@
+.date-and-price-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 130px;
+    background-color: var(--date-copy);
+}
+
+.date-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+.date-container-top-margin {
+    margin-top: 15px;
+}
+
+.date-month,
+.date-day,
+.date-weekday,
+.date-price {
+    font-family: 'Open Sans', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 1px;
+    line-height: 1em;
+    /* width: 35px; */
+
+}
+
+.date-month,
+.date-weekday {
+    font-size: 18px;
+}
+
+.date-day {
+    font-size: 30px;
+}
+
+.date-price-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+}
+
+.date-price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-end;
+    margin-top: auto;
+    height: 30px;
+    width: 100%;
+
+    background-color: var(--crc-blue);
+}

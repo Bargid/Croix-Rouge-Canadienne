@@ -1,0 +1,35 @@
+.filters-courses-container {
+    display: flex;
+    justify-content: center;
+    /* width: fit-content; */
+    
+}
+
+.horizontals-container {
+    max-width: 1000px;
+    min-width: 400px;
+    width: 100%;
+}
+
+.course-group-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 30px;
+    /* width: 100%; */
+    /* flex-direction: column; */
+}
+
+.course-group-container > div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.course-container {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid blue;
+    /* width: 100%; */
+    min-width: 400px;
+}
+
