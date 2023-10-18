@@ -34,6 +34,16 @@
                         {{ certification.name }}
                     </option>
             </select>
+            <select name="Sorting" id=""
+                v-model="selectedSorting" 
+                v-on:change="handleEmits"> 
+                <option value=""> Sorting </option>
+                <option v-for="sort in sorting"
+                        v-bind:key="sort.name" 
+                        v-bind:value="sort.name">
+                        {{ sort.name }}
+                    </option>
+            </select>
         </div>
     </div>
 
@@ -51,6 +61,8 @@
                 selectedLanguages: '',
                 certifications: [],
                 selectedCertification: '',
+                sorting: [],
+                selectedSorting: '',
             }
         },
 
@@ -60,6 +72,7 @@
                 this.$emit('selected-delivery-method', {selectedDeliveryMethod: this.selectedDeliveryMethod});
                 this.$emit('selected-languages', {selectedLanguages: this.selectedLanguages});
                 this.$emit('selected-certifications', {selectedCertifications: this.selectedCertification});
+                this.$emit('selected-sorting', {selectedSorting: this.selectedSorting});
             }
         },
 
@@ -78,6 +91,11 @@
             fetch('http://localhost:3000/certifications')
                 .then((res) => res.json())
                 .then(data => this.certifications = data)
+                .catch(err => console.log(err.message))
+
+            fetch('http://localhost:3000/sorting')
+                .then((res) => res.json())
+                .then(data => this.sorting = data)
                 .catch(err => console.log(err.message))
         }
     }

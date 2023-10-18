@@ -4,6 +4,7 @@
         <div class="topbanner-text-time">
             <span class="topbanner-text">
                 {{ courseData.title }}
+                <img src="@/assets/Icons/arrow_blue.svg" alt="Blue Arrow" class="blue-arrow">
             </span>
             <span class="topbanner-time">
                 {{ courseData.startTime }} - {{ courseData.endTime }}
@@ -61,11 +62,8 @@
             DeliveryMethodAbbreviation(deliveryMethod) {
                 let text = '';
                 if (deliveryMethod.includes('Live Event')) {
-                    console.log(deliveryMethod)
                     text = deliveryMethod.slice(0, deliveryMethod.indexOf('(instructor Led)')).trim();
-                    console.log(text)
                 } else if (Array.isArray(deliveryMethod)) { // On verifie si c'est un array
-                    console.log('Array')
                     text = deliveryMethod.join(' / ');
                 } else {
                     text = deliveryMethod;

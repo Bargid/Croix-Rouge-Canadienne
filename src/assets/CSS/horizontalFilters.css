@@ -4,14 +4,13 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-left: var(--mid-margin);
+    margin-left: 30px;
     margin-bottom: var(--small-margin);
     height: fit-content;
 }
 
 .horizontal-filters-container {
     display: flex;
-    justify-content: center;
     align-items: center;
     gap: var(--mid-margin);
 
@@ -48,13 +47,21 @@
     height: 15px;
 }
 
+.sorting-image {
+    height: 18px;
+    width: 18px;
+}
+
 /* ========== Horizontal Tags and RESET ========== */
 
 .horizontal-tags-container {
     display: flex;
     align-items: center;
-    margin-left: var(--mid-margin);
+    margin-top: var(--very-small-margin);
+    margin-bottom: var(--very-small-margin);
+    margin-left: 30px;
     height: 33px;
+
 }
 
 .reset-tag,

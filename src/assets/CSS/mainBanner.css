@@ -1,0 +1,61 @@
+.infosadress-tp-container {
+    display: flex;
+    flex-direction: column;
+    /* padding: 8px 10px; */
+    gap: 4px;
+    width: 50%;
+}
+
+.infosadress-container,
+.tp-container {
+    display: flex;
+    gap: 8px;
+    /* padding: 5px 8px; */
+}
+
+.infosadress-container img {
+    height: 30px;
+    width: 16px;
+}
+
+.infosadress-container div {
+    display: flex;
+    flex-direction: column;
+}
+
+.infosadress-container div,
+.tp-container div {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: 1.4em;
+}
+
+.infosadress-container div div {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.adress {
+    cursor: pointer;
+}
+
+.adress:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+.tp-container img {
+    height: 16px;
+    width: 16px;
+}
+
+.bottombanner-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px;
+    height: 100%;
+
+    position: relative;
+}

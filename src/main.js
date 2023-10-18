@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
+
 // CSS imports
 
 import './assets/CSS/root.css'
@@ -14,6 +15,9 @@ import './assets/CSS/courses.css'
 import './assets/CSS/horizontalFilters.css'
 import './assets/CSS/dateAndPrice.css'
 import './assets/CSS/topbanner.css'
+import './assets/CSS/mainBanner.css'
+import './assets/CSS/cardButton.css'
+import './assets/CSS/populartag.css'
 
 // Font Awesome
 

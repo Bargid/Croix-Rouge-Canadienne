@@ -22,9 +22,31 @@
 }
 
 .topbanner-text {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 7px;
     font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
 }
+
+.topbanner-text:hover {
+    color: var(--crc-blue);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+.blue-arrow {
+    height: 20px;
+    width: 20px;
+    visibility: hidden;
+}
+
+.topbanner-text:hover .blue-arrow {
+    visibility: visible;
+}
+
 
 .topbanner-time {
     font-size: 14px;
@@ -33,6 +55,7 @@
 
 .topbanner-infos {
     display: flex;
+    align-items: center;
     padding: 10px 15px;
     gap: 15px;
 }

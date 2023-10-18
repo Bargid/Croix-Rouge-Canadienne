@@ -21,14 +21,15 @@
         <p class="important-message"><span>important: </span> Maintenance will take place on Saturday, April 17th, from 9:00 p.m. to 10:00 p.m. ET. Access to online course content will be unavailable and other functions may also be interrupted</p>
       </div>
 
-      <CourseTypeSelector v-on:selected-course-type="handleSelectedCourseTypes"/>
+      <CourseTypeSelector v-on:selected-course-type="handleSelectedCourseTypes"
+                          v-on:scroll-to-section ="scrollToTargetSection"
+                          v-on:search-clicked="searchClicked"/>
 
       <img src="./assets/Images/classroom-banner.webp" alt="Hero Banner">
     </section>
-    <p>Body</p>
 
     <section class="courses-template"> 
-      <div class="left-filters">
+      <div class="left-filters" id="targetSection">
 
         <Courses v-bind:selectedCourseType="selectedCourseType"/>
 
@@ -84,6 +85,15 @@
       handleSelectedCourseTypes(value) {
           this.selectedCourseType = value.selectedCourseType;
           console.log(this.selectedCourseType);
+      },
+
+      scrollToTargetSection() {
+        console.log('scrolltotarget')
+        const target = document.querySelector('#targetSection');
+        target.scrollIntoView({ behavior: 'smooth' })
+      },
+      searchClicked() {
+        this.$refs.Calendar.handleDateSelection();
       }
     }
   }

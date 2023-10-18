@@ -57,6 +57,7 @@
     },
     created() { // created est un lifecycle hook. Le moment de la creation d'un objet ou une propriété
         this.startDate = today // la valeur "startDate" dans data est maintenant la journee d'aujourd'hui
+
     },
     methods: {
         openStartDatePicker() {
@@ -66,9 +67,7 @@
         },
         handleDateSelection() { // permet d'envoyer les valeur sélectionnés par le user a la View parent qui utilisera ce component, Calendar.vue
             this.$emit('selected-dates', {startDate: this.startDate, endDate: this.endDate})
-            // console.log(this.startDate)
-            // console.log(this.endDate)
         }
-    }
+    },
  }
 </script>

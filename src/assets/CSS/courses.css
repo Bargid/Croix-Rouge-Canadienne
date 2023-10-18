@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     /* width: fit-content; */
+    margin: var(--large-margin) 0;
     
 }
 
@@ -28,8 +29,16 @@
 .course-container {
     display: flex;
     /* flex-direction: column; */
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     /* width: 100%; */
-    min-width: 400px;
+    min-width: 850px;
+    margin-bottom: 20px;
+    border: 1px solid var(--form-border);
+}
+
+.course-banners {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 

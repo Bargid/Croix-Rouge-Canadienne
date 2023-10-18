@@ -1,0 +1,63 @@
+.button-text-container p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 5px;
+}
+
+.button-text-container p,
+.button-register-text-container p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: var(--crc-red);
+    font-weight: bold;
+}
+
+.button-text-container p img {
+    visibility: hidden;
+    height: 10px;
+}
+
+.button-text-container p:hover img {
+    visibility: visible;
+}
+
+.button-container {
+    display: flex;
+    align-items: flex-end;
+}
+
+.button-container p {
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Register button */
+
+.button-register-text-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 150px;
+    border-radius: 4px;
+    border: 2px solid var(--crc-red);
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+}
+
+.button-register-text-container p {
+    text-transform: uppercase;
+
+    transition: color 0.2s;
+}
+
+.button-register-text-container:hover {
+    background-color: var(--crc-red);
+}
+
+.button-register-text-container:hover p {
+    color: white;
+}

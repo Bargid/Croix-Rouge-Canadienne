@@ -31,7 +31,8 @@
         methods: {
 
             formatDate(dateString) {
-                const date = new Date(dateString);
+                const date = new Date(dateString + 'T00:00:00Z');
+                date.setDate(date.getDate()+1)
                 const year = date.getFullYear();
                 const month = date.toLocaleString('en-US', { month: 'short' });
                 const day = date.getDate();
@@ -42,7 +43,6 @@
 
             marginAdd() {
                 if (this.courseData.price > 0) {
-                    console.log('Allo')
                     const dateContainer = this.$refs.dateContainer;
                     dateContainer.classList.add('date-container-top-margin');
                 }

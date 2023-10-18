@@ -9,6 +9,9 @@
             "startTime": "6:00 PM EST",
             "endTime": "10:00 PM EST",
             "duration": "3:00",
+            "adress": "4200 Ontario Blvd, Montreal",
+            "phoneNumber": "(514)-555-1234",
+            "email": "email@courriel.com",
             "certification": "Certified",
             "deliveryMethod": "In-Class",
             "trainingPartner": "CRCS Online Course",
@@ -21,18 +24,21 @@
             "id": 2,
             "title": "CPR-AED / RCR-DEA - Blended / Mixte",
             "courseType": "First Aid",
-            "subGroup": "Work / School",
+            "subGroup": "Personal",
             "date": "2023-10-24",
             "startTime": "6:00 PM EST",
             "endTime": "10:00 PM EST",
             "duration": "3:00",
+            "adress": "2626A Jeanne d'Arc avenue, Montreal",
+            "phoneNumber": "(514)-555-5678",
+            "email": "email@courriel.com",
             "certification": "Quick Learning",
             "deliveryMethod": ["Online", "In-Class"],
             "trainingPartner": "CRCS Online Course",
             "subGroupChoice": "Yes",
             "language": "French",
             "price": 0,
-            "popular": true
+            "popular": false
         },
         { 
             "id": 3,
@@ -43,6 +49,9 @@
             "startTime": "6:00 PM EST",
             "endTime": "10:00 PM EST",
             "duration": "3:00",
+            "adress": "1347 Megatic street, Montreal",
+            "phoneNumber": "(514)-555-9865",
+            "email": "email@courriel.com",
             "certification": "Quick Learning",
             "deliveryMethod": "Live Event (instructor Led)",
             "trainingPartner": "CRCS Online Course",
@@ -50,17 +59,20 @@
             "subGroupChoiceDetail": "Child Care Standard First Aid CPR B",
             "language": "English",
             "price": 100,
-            "popular": true
+            "popular": false
         },
         { 
             "id": 4,
-            "title": "quatrieme cours",
+            "title": "Workplace Hazardous Materials Information System 2015",
             "courseType": "First Aid",
-            "subGroup": "Personal",
+            "subGroup": "Work / School",
             "date": "2023-10-19",
             "startTime": "6:00 PM EST",
             "endTime": "10:00 PM EST",
             "duration": "3:00",
+            "adress": "9713 Rouen street, Montreal",
+            "phoneNumber": "(514)-555-1234",
+            "email": "email@courriel.com",
             "certification": "Certified",
             "deliveryMethod": ["Online", "In-Class"],
             "trainingPartner": "CRCS Online Course",
@@ -68,17 +80,20 @@
             "subGroupChoiceDetail": "Marine First Aid",
             "language": "French",
             "price": 0,
-            "popular": true
+            "popular": false
         },
         { 
             "id": 5,
-            "title": "cinquieme cours",
+            "title": "Workplace Safety Protocols 2018",
             "courseType": "First Aid",
-            "subGroup": "Personal",
-            "date": "2023-10-18",
+            "subGroup": "Work / School",
+            "date": "2023-10-20",
             "startTime": "6:00 PM EST",
             "endTime": "10:00 PM EST",
             "duration": "3:00",
+            "adress": "7649 Joliette street, Montreal",
+            "phoneNumber": "(514)-555-7845",
+            "email": "email@courriel.com",
             "certification": "Quick Learning",
             "deliveryMethod": "Online",
             "trainingPartner": "CRCS Online Course",
@@ -96,10 +111,54 @@
             "startTime": "6:00 PM EST",
             "endTime": "10:00 PM EST",
             "duration": "3:00",
+            "adress": "2898 Melrose avenue, Montreal",
+            "phoneNumber": "(514)-555-8768",
+            "email": "email@courriel.com",
             "certification": "Quick Learning",
             "deliveryMethod": "In-Class",
             "trainingPartner": "CRCS Online Course",
             "language": "Both",
+            "price": 100,
+            "popular": false
+        },
+        { 
+            "id": 7,
+            "title": "First Aid for Children",
+            "courseType": "First Aid",
+            "subGroup": "Personal",
+            "date": "2023-10-18",
+            "startTime": "6:00 PM EST",
+            "endTime": "10:00 PM EST",
+            "duration": "3:00",
+            "adress": "7649 Joliette street, Montreal",
+            "phoneNumber": "(514)-555-7845",
+            "email": "email@courriel.com",
+            "certification": "Quick Learning",
+            "deliveryMethod": "Online",
+            "trainingPartner": "CRCS Online Course",
+            "subGroupChoice":  "Children",
+            "subGroupChoiceDetail": "CPR C",
+            "language": ["English", "French"],
+            "price": 100,
+            "popular": false
+        },
+        { 
+            "id": 8,
+            "title": "Cours 8, Nom Random",
+            "courseType": "First Aid",
+            "subGroup": "Personal",
+            "date": "2023-10-27",
+            "startTime": "6:00 PM EST",
+            "endTime": "10:00 PM EST",
+            "duration": "3:00",
+            "adress": "",
+            "phoneNumber": "",
+            "email": "",
+            "certification": "Certified",
+            "deliveryMethod": "In-Class",
+            "trainingPartner": "CRCS Online Course",
+            "subGroupChoice": "No",
+            "language": "English",
             "price": 100,
             "popular": true
         }
@@ -263,6 +322,15 @@
         },
         {
             "name": "Quick Learning"
+        }
+    ],
+
+    "sorting": [
+        {
+            "name": "Date"
+        },
+        {
+            "name": "Popular"
         }
     ]
 

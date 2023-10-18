@@ -161,7 +161,7 @@
 
             selectedCourseType(selectedCourseType) { // trigger avec le select du Hero de page
                 const foundCourseType = this.courseTypes.find(courseType => courseType.name === selectedCourseType)
-                console.log('foundCourseType : ', foundCourseType)
+                // console.log('foundCourseType : ', foundCourseType)
                 if (foundCourseType) {
                     this.toggleCategoryCheckbox(foundCourseType.name);
                     this.showDropdown = true;
@@ -215,7 +215,7 @@
 // =================== Value from CourseTypeSelector ===================
 
             handleCourseTypeSelected() {
-                console.log('handleCourseTypeSelected : ', this.selectedCourseType)
+                // console.log('handleCourseTypeSelected : ', this.selectedCourseType)
             },
 
 // ================== Emit from children Handling ==================
@@ -303,6 +303,7 @@
 // ================== Toggle de Checkbox functions ==================
 
             toggleCategoryCheckbox(categoryName) {
+                console.log('toggleCategoryCheckbox')
                 for (const key in this.CategoryChecked) {
                     if (key !== categoryName) {
                         this.CategoryChecked[key] = false;
@@ -322,6 +323,7 @@
                 });
                 this.resetSubGroups()
                 this.handleEmits();
+                // console.log('Category : ', this.selectedFilters)
             },
 
             toggleSubGroupCheckbox(subGroupName) {
@@ -343,11 +345,14 @@
                         }
                     }
                 }
-
+                
                 // Toggle de la checkbox
                 this.SubGroupChecked[subGroupName] = !this.SubGroupChecked[subGroupName];
                 this.subGroupExists = Object.values(this.SubGroupChecked).some(val => val);
                 this.handleEmits();
+                console.log('toggleSubGroupCheckbox')
+                // console.log('leparent : ', this.SubGroupChecked)
+                // console.log('SubGroup : ', this.selectedFilters)
             },
 
             toggleSubGroupChoiceCheckbox(subGroupChoiceName) {
@@ -362,17 +367,25 @@
                             // console.log(this.selectedFilters)
                         }
                     }
+                    this.subGroupExists = true;
+                    // this.subGroupExists = true;
+                    // this.subGroupChoiceExists = true;
+                    // console.log('SubGroup Exist : ', this.subGroupExists)
+                    // console.log('SubGroupChoice Exist : ', this.subGroupChoiceExists)
                 }
-
+                
                 for (const key in this.SubGroupChoiceDetailChecked) {
                     this.SubGroupChoiceDetailChecked[key] = false;
                 }
-
+                
                 // Toggle de la checbox
                 this.SubGroupChoiceChecked[subGroupChoiceName] = !this.SubGroupChoiceChecked[subGroupChoiceName];
+                // console.log('checkifparentchecked : ', this.SubGroupChecked)
                 this.subGroupChoiceExists = Object.values(this.SubGroupChoiceChecked).some(val => val);
                 // console.log(this.subGroupChoiceExists)
                 this.handleEmits();
+                // console.log('toggleSubGroupChoiceCheckbox')
+                // console.log('SubGroupChoice : ', this.selectedFilters)
             },
 
             toggleSubGroupChoiceDetailCheckbox(subGroupChoiceDetailName) {
@@ -385,12 +398,16 @@
                             this.selectedFilters.splice(index, 1);
                         }
                     }
+                    this.subGroupChoiceExists = true;
+                    this.subGroupExists = true;
+                    // console.log('SubGroup Exist : ', this.subGroupExists)
+                    // console.log('SubGroupChoice Exist : ', this.subGroupChoiceExists)
+                    // console.log('SubGroupChoiceDetail Exist : ', this.subGroupChoiceDetailExists)
                 }
-
+                
                 // Toggle the checkbox
                 this.SubGroupChoiceDetailChecked[subGroupChoiceDetailName] = !this.SubGroupChoiceDetailChecked[subGroupChoiceDetailName];
                 this.subGroupChoiceDetailExists = Object.values(this.SubGroupChoiceDetailChecked).some(val => val);
-                // console.log('DetailValue on ToggleDetailCheckbox : ', this.subGroupChoiceDetailExists)
                 this.handleEmits();
             },
 
