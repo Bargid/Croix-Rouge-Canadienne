@@ -3,7 +3,7 @@
         { 
             "id": 1,
             "title": "CPR / Automated External Defibrillator",
-            "courseType": "First Aid",
+            "courseType": "Instructor & Youth Leader",
             "subGroup": "Personal",
             "date": "2023-10-22",
             "startTime": "6:00 PM EST",
@@ -181,7 +181,7 @@
                                             "name": "Child Care Standard First Aid CPR B"
                                         },
                                         {
-                                            "name": "Child Care Emergency First Aid CPR B"
+                                            "name": "Child Care Emergency First Aid CPR A"
                                         }
                                     ]
                                 },

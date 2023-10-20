@@ -18,6 +18,7 @@ import './assets/CSS/topbanner.css'
 import './assets/CSS/mainBanner.css'
 import './assets/CSS/cardButton.css'
 import './assets/CSS/populartag.css'
+import './assets/CSS/quickfilters.css'
 
 // Font Awesome
 
@@ -25,12 +26,6 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCalendarDays, faUserSecret, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(faUserSecret, faCalendarDays, faCheck)
-
-// Vue Datepicker
-
-import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
-
 
 createApp(App)
 .use(router)

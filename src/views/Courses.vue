@@ -1,5 +1,9 @@
 <template>
 
+    <!-- <section class="quickfilters-container">
+        <QuickFilters />
+    </section> -->
+
     <section class="filters-courses-container">
         <div class="calendar-filter-menu-container">
             <Calendar v-on:selected-dates="handleSelectedDates"/> <!-- On ecoute le $emit de calendar -->
@@ -70,15 +74,17 @@
 import Calendar from '@/components/Calendar.vue';
 import SelectFilters from '@/components/SelectFilters.vue';
 import HorizontalFilters from '@/components/HorizontalFilters.vue';
+import QuickFilters from '@/components/QuickFilters.vue'
 
 // Course Card
 import DateAndPrice from '@/components/CardComponents/DateAndPrice.vue';
 import TopBanner from '@/components/CardComponents/TopBanner.vue';
 import MainBanner from '@/components/CardComponents/MainBanner.vue';
+// import EventBus from '@/eventBus.js';
 
     export default {
         name: 'Courses',
-        components: { Calendar, SelectFilters, HorizontalFilters, DateAndPrice, TopBanner, MainBanner,},
+        components: { Calendar, SelectFilters, HorizontalFilters, DateAndPrice, TopBanner, MainBanner, QuickFilters},
 
         props: {
             selectedCourseType: String
@@ -103,6 +109,8 @@ import MainBanner from '@/components/CardComponents/MainBanner.vue';
                 SubGroupChecked: {},
                 SubGroupChoiceChecked: {},
                 SubGroupChoiceDetailChecked: {},
+
+                isSomethingSelected: false,
             }
         },
 
@@ -473,6 +481,7 @@ import MainBanner from '@/components/CardComponents/MainBanner.vue';
         },
 
         mounted() {
+
             fetch('http://localhost:3000/courses')
                 .then((res) => res.json())
                 .then(data => this.courses = data)
