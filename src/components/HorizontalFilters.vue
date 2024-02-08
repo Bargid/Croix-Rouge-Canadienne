@@ -78,22 +78,22 @@
 
         mounted() {
 
-            fetch('http://localhost:3000/deliveryMethods')
+            fetch('http://localhost:8080/deliveryMethods')
                 .then((res) => res.json())
                 .then(data => this.deliveryMethods = data)
                 .catch(err=> console.log(err.message))
 
-            fetch('http://localhost:3000/languages')
+            fetch('http://localhost:8080/languages')
                 .then((res) => res.json())
                 .then(data => this.languages = data)
                 .catch(err => console.log(err.message))
 
-            fetch('http://localhost:3000/certifications')
+            fetch('http://localhost:8080/certifications')
                 .then((res) => res.json())
                 .then(data => this.certifications = data)
                 .catch(err => console.log(err.message))
 
-            fetch('http://localhost:3000/sorting')
+            fetch('http://localhost:8080/sorting')
                 .then((res) => res.json())
                 .then(data => this.sorting = data)
                 .catch(err => console.log(err.message))

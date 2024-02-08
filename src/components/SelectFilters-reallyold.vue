@@ -233,12 +233,12 @@
                 courseType.showSubDropdown = false; // Initialize showSubDropdown for each courseType
             })
 
-            fetch('http://localhost:3000/courses')
+            fetch('http://localhost:8080/courses')
                 .then((res) => res.json())
                 .then(data => this.courses = data)
                 .catch(err => console.log(err.message))
             
-            fetch('http://localhost:3000/courseTypes')
+            fetch('http://localhost:8080/courseTypes')
                 .then((res) => res.json())
                 .then(data => this.courseTypes = data)
                 .catch(err => console.log(err.message))

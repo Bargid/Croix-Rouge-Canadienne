@@ -496,27 +496,27 @@
                 courseType.showSubDropdown = false; // Initialize showSubDropdown for each courseType
             })
 
-            fetch('http://localhost:3000/courses')
+            fetch('http://localhost:8080/courses')
                 .then((res) => res.json())
                 .then(data => this.courses = data)
                 .catch(err => console.log(err.message))
             
-            fetch('http://localhost:3000/courseTypes')
+            fetch('http://localhost:8080/courseTypes')
                 .then((res) => res.json())
                 .then(data => this.courseTypes = data)
                 .catch(err => console.log(err.message))
 
-            fetch('http://localhost:3000/deliveryMethods')
+            fetch('http://localhost:8080/deliveryMethods')
                 .then((res) => res.json())
                 .then(data => this.deliveryMethods = data)
                 .catch(err=> console.log(err.message))
 
-            fetch('http://localhost:3000/languages')
+            fetch('http://localhost:8080/languages')
                 .then((res) => res.json())
                 .then(data => this.languages = data)
                 .catch(err => console.log(err.message))
 
-            fetch('http://localhost:3000/certifications')
+            fetch('http://localhost:8080/certifications')
                 .then((res) => res.json())
                 .then(data => this.certifications = data)
                 .catch(err => console.log(err.message))

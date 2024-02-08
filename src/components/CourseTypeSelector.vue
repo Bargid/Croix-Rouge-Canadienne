@@ -43,7 +43,7 @@
 
         mounted() {
 
-            fetch('http://localhost:3000/courseTypes')
+            fetch('http://localhost:8080/courseTypes')
                 .then((res) => res.json())
                 .then(data => this.courseTypes = data)
                 .catch(err=> console.log(err.message))

@@ -482,7 +482,7 @@ import MainBanner from '@/components/CardComponents/MainBanner.vue';
 
         mounted() {
 
-            fetch('http://localhost:3000/courses')
+            fetch('http://localhost:8080/courses')
                 .then((res) => res.json())
                 .then(data => this.courses = data)
                 .catch(err => console.log(err.message))
